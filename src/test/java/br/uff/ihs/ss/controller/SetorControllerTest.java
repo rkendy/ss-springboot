@@ -25,6 +25,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import br.uff.ihs.ss.SetorTestHelper;
 import br.uff.ihs.ss.controller.advice.NotFoundAdvice;
 import br.uff.ihs.ss.exception.NotFoundException;
 import br.uff.ihs.ss.model.Setor;
@@ -50,7 +51,7 @@ public class SetorControllerTest {
 
     @Test
     void givenSetorList_whenFindAll_thenSuccess() throws Exception {
-        List<Setor> list = List.of(Setor.builder().codigo(Setor.Codigo.ALMOXARIFADO).nome("Almoxarifado").build());
+        List<Setor> list = SetorTestHelper.createList();
 
         when(setorService.getAll()).thenReturn(list);
 
