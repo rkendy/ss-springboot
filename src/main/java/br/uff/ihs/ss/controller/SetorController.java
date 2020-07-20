@@ -35,8 +35,9 @@ public class SetorController {
     }
 
     @GetMapping(ENDPOINT_ID)
-    public ResponseEntity<Setor> getSetor(@PathVariable Long id) {
-        return ResponseEntity.ok(setorService.getById(id));
+    public ResponseEntity<SetorDto> getSetor(@PathVariable Long id) {
+        return ResponseEntity.ok(MapperUtil.convertToDto(setorService.getById(id), SetorDto.class));
+        // return ResponseEntity.ok(setorService.getById(id));
     }
 
 }

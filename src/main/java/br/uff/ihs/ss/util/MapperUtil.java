@@ -1,5 +1,6 @@
 package br.uff.ihs.ss.util;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,13 +17,8 @@ public final class MapperUtil {
         return list.stream().map(e -> convertToDto(e, dto)).collect(Collectors.toList());
     }
 
-    // private SetorDto convertToDto(Setor setor) {
-    // // return BaseController.convertToDto(setor, SetorDto.class);
-    // return modelMapper.map(setor, SetorDto.class);
-    // }
-
-    // private Setor convertToEntity(SetorDto setorDto) throws ParseException {
-    // return modelMapper.map(setorDto, Setor.class);
-    // }
+    public static <B> B convertToEntity(Object dto, Class<B> bean) throws ParseException {
+        return modelMapper.map(dto, bean);
+    }
 
 }
