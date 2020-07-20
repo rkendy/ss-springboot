@@ -25,7 +25,6 @@ public class Setor implements Serializable {
 
     private static final long serialVersionUID = 6523249791587614649L;
 
-    // Mudanca no Enum deve refletir mudanca na coluna Setor.Codigo
     public static enum Codigo {
         INFORMATICA, TRANSPORTE, ALMOXARIFADO, PATRIMONIO
     }
@@ -35,12 +34,10 @@ public class Setor implements Serializable {
     private Long id;
 
     private String nome;
+    private String codigo;
     private String email;
     private String lotacao;
     private Boolean ativo;
-
-    @Enumerated(EnumType.STRING)
-    private Codigo codigo;
 
     // @ManyToMany
     // @JoinTable(

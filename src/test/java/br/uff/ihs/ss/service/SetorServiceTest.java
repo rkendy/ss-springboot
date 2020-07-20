@@ -44,14 +44,14 @@ public class SetorServiceTest {
     @Test
     public void givenValidId_whenFindById_thenReturnElement() {
 
-        Optional<Setor> setor = Optional.of(SetorTestHelper.create(Setor.Codigo.ALMOXARIFADO, "Almoxarifado"));
+        Optional<Setor> setor = Optional.of(SetorTestHelper.create(Setor.Codigo.ALMOXARIFADO.name(), "Almoxarifado"));
 
         when(setorRepository.findById(anyLong())).thenReturn(setor);
 
         Setor result = setorService.getById(1L);
 
         assertNotNull(result);
-        assertEquals(Setor.Codigo.ALMOXARIFADO, result.getCodigo());
+        assertEquals(Setor.Codigo.ALMOXARIFADO.name(), result.getCodigo());
         assertEquals("Almoxarifado", result.getNome());
 
     }

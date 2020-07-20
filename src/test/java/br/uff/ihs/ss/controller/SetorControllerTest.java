@@ -59,18 +59,19 @@ public class SetorControllerTest {
                 .andExpect(status().isOk()) //
                 .andExpect(jsonPath("$.length()", is(list.size())))
                 .andExpect(jsonPath("$[0].nome", is(list.get(0).getNome())))
-                .andExpect(jsonPath("$[0].codigo", is(list.get(0).getCodigo().name())));
+                .andExpect(jsonPath("$[0].codigo", is(list.get(0).getCodigo())));
     }
 
     @Test
     void givenValidId_whenFindById_thenSuccess() throws Exception {
-        Setor setor = Setor.builder().id(1L).nome("Informatica").codigo(Setor.Codigo.INFORMATICA).build();
+        Setor setor = Setor.builder().id(1L).nome("Setor ABC").codigo("SETOR_ABC").build();
 
         when(setorService.getById(1L)).thenReturn(setor);
 
         mockMvc.perform(get(SetorController.ENDPOINT + "/" + setor.getId())) //
                 .andExpect(status().isOk()) //
                 .andExpect(jsonPath("$.id").value(setor.getId())) //
+                .andExpect(jsonPath("$.codigo").value(setor.getCodigo())) //
                 .andExpect(jsonPath("$.nome").value(setor.getNome()));
 
     }

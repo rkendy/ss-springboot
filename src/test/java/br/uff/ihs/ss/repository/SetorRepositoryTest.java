@@ -12,7 +12,7 @@ public class SetorRepositoryTest extends RepositoryTest<SetorRepository, Setor> 
     @Test
     public void givenNovoSetor_whenInsert_thenSuccess() {
         final Setor s = Setor.builder() //
-                .codigo(Setor.Codigo.ALMOXARIFADO) //
+                .codigo(Setor.Codigo.ALMOXARIFADO.name()) //
                 .nome("Almoxarifado") //
                 .ativo(true) //
                 .email("email@email.com").lotacao("01").build();
@@ -21,7 +21,7 @@ public class SetorRepositoryTest extends RepositoryTest<SetorRepository, Setor> 
 
         assertNotNull(novo);
         assertNotNull(novo.getId());
-        assertEquals(Setor.Codigo.ALMOXARIFADO, novo.getCodigo());
+        assertEquals(Setor.Codigo.ALMOXARIFADO.name(), novo.getCodigo());
         assertEquals("Almoxarifado", novo.getNome());
         assertEquals(true, novo.getAtivo());
         assertEquals("email@email.com", novo.getEmail());
