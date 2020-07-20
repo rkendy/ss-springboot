@@ -1,7 +1,12 @@
 package br.uff.ihs.ss.controller;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.uff.ihs.ss.util.MapperUtil;
+import br.uff.ihs.ss.dto.SetorDto;
 import br.uff.ihs.ss.model.Setor;
 import br.uff.ihs.ss.service.SetorService;
 
@@ -23,8 +30,8 @@ public class SetorController {
     private SetorService setorService;
 
     @GetMapping
-    public ResponseEntity<List<Setor>> getAllSetor() {
-        return ResponseEntity.ok(setorService.getAll());
+    public ResponseEntity<List<SetorDto>> getAllSetor() {
+        return ResponseEntity.ok(MapperUtil.convertToDtoList(setorService.getAll(), SetorDto.class));
     }
 
     @GetMapping(ENDPOINT_ID)

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.uff.ihs.ss.dto.SetorDto;
 import br.uff.ihs.ss.exception.NotFoundException;
 import br.uff.ihs.ss.model.Setor;
 import br.uff.ihs.ss.repository.SetorRepository;
