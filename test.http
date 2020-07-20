@@ -1,0 +1,10 @@
+http://localhost:8080/api/setor/1
+
+### Create Gretting:
+POST http://localhost:8080/api/setor HTTP/1.1
+content-type: application/json
+
+{
+	"codigo": "EXTERNALID",
+	"nome": "Nome"
+}

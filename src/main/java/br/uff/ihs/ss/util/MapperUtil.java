@@ -17,7 +17,7 @@ public final class MapperUtil {
         return list.stream().map(e -> convertToDto(e, dto)).collect(Collectors.toList());
     }
 
-    public static <B> B convertToEntity(Object dto, Class<B> bean) throws ParseException {
+    public static <B> B convertToEntity(Object dto, Class<B> bean) { // throws ParseException {
         return modelMapper.map(dto, bean);
     }
 

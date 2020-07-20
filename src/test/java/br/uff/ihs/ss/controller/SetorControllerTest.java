@@ -1,9 +1,11 @@
 package br.uff.ihs.ss.controller;
 
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -17,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -75,7 +78,21 @@ public class SetorControllerTest {
     void givenInvalidSetorId_whenFindById_thenReturnNotFound() throws Exception {
         when(setorService.getById(anyLong())).thenThrow(NotFoundException.class);
 
-        mockMvc.perform(get(setorController.ENDPOINT + "/111")) //
+        mockMvc.perform(get(SetorController.ENDPOINT + "/111")) //
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void givenSetor_whenCreate_thenSuccess() throws Exception {
+        Setor newSetor = SetorTestHelper.create("SETOR_ABC", "Setor ABC");
+        newSetor.setId(1L);
+
+        when(setorService.create(any(Setor.class))).thenReturn(newSetor);
+
+        mockMvc.perform( //
+                post(SetorController.ENDPOINT) //
+                        .contentType(MediaType.APPLICATION_JSON) //
+                        .content("{}")) //
+                .andExpect(status().isCreated());
     }
 }

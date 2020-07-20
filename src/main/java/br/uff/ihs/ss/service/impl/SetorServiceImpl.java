@@ -34,4 +34,9 @@ public class SetorServiceImpl implements SetorService {
         return setorRepository.findById(id).orElseThrow(() -> new NotFoundException(Setor.class, id));
     }
 
+    @Override
+    public Setor create(Setor setor) {
+        return setorRepository.save(setor);
+    }
+
 }

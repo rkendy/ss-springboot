@@ -2,6 +2,7 @@ package br.uff.ihs.ss.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -36,7 +37,7 @@ public class Setor implements Serializable {
     private String nome;
     private String codigo;
     private String email;
-    private String lotacao;
+    private String lotacao = "01";
     private Boolean ativo;
 
     // @ManyToMany

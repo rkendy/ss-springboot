@@ -10,4 +10,6 @@ public interface SetorService {
     Setor getById(Long id);
 
     List<Setor> getByFilter(Setor filter);
+
+    Setor create(Setor setor);
 }
