@@ -44,7 +44,7 @@ public class SetorServiceTest {
 
         when(setorRepository.findAll()).thenReturn(list);
 
-        Iterable<Setor> result = setorService.getAll();
+        Iterable<Setor> result = setorService.findAll();
 
         assertEquals(list.size(), ((Collection<?>) result).size());
 
@@ -57,7 +57,7 @@ public class SetorServiceTest {
 
         when(setorRepository.findById(anyLong())).thenReturn(setorOp);
 
-        Setor result = setorService.getById(1L);
+        Setor result = setorService.findById(1L);
 
         assertNotNull(result);
         assertEquals(setor.getCodigo(), result.getCodigo());

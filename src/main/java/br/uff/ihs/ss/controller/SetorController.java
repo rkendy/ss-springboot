@@ -34,12 +34,12 @@ public class SetorController {
 
     @GetMapping
     public ResponseEntity<List<SetorDto>> getAllSetor() {
-        return ResponseEntity.ok(MapperUtil.convertToDtoList(setorService.getAll(), SetorDto.class));
+        return ResponseEntity.ok(MapperUtil.convertToDtoList(setorService.findAll(), SetorDto.class));
     }
 
     @GetMapping(ENDPOINT_ID)
     public ResponseEntity<SetorDto> getSetor(@PathVariable Long id) {
-        return ResponseEntity.ok(MapperUtil.convertToDto(setorService.getById(id), SetorDto.class));
+        return ResponseEntity.ok(MapperUtil.convertToDto(setorService.findById(id), SetorDto.class));
         // return ResponseEntity.ok(setorService.getById(id));
     }
 

@@ -50,7 +50,7 @@ public class SetorControlerTestIT {
 
     @BeforeEach
     void setup() {
-        list = setorService.getAll();
+        list = setorService.findAll();
         setor = list.get(0);
 
     }

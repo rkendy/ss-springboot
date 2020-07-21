@@ -17,19 +17,20 @@ public class SetorServiceImpl implements SetorService {
     @Autowired
     SetorRepository setorRepository;
 
-    public List<Setor> getAll() {
+    @Override
+    public List<Setor> findAll() {
         List<Setor> result = new ArrayList<>();
         setorRepository.findAll().forEach(result::add);
         return result;
     }
 
     @Override
-    public List<Setor> getByFilter(Setor filter) {
+    public List<Setor> findByFilter(Setor filter) {
         return null;
     }
 
     @Override
-    public Setor getById(Long id) {
+    public Setor findById(Long id) {
         return setorRepository.findById(id).orElseThrow(() -> new NotFoundException(Setor.class, id));
     }
 

@@ -5,13 +5,15 @@ import java.util.List;
 import br.uff.ihs.ss.model.Setor;
 
 public interface SetorService {
-    List<Setor> getAll();
+    List<Setor> findAll();
 
-    Setor getById(Long id);
+    Setor findById(Long id);
 
-    List<Setor> getByFilter(Setor filter);
+    List<Setor> findByFilter(Setor filter);
 
     Setor create(Setor setor);
 
     Setor update(Long id, Setor setor);
+
+    // void delete(Long id);
 }

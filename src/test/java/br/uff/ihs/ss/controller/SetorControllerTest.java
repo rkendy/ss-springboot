@@ -51,7 +51,7 @@ public class SetorControllerTest {
         void givenSetorList_whenFindAll_thenSuccess() throws Exception {
                 List<Setor> list = SetorTestHelper.createList();
 
-                when(setorService.getAll()).thenReturn(list);
+                when(setorService.findAll()).thenReturn(list);
 
                 mockMvc.perform(get(SetorController.ENDPOINT)) //
                                 .andExpect(status().isOk()) //
@@ -64,7 +64,7 @@ public class SetorControllerTest {
         void givenValidId_whenFindById_thenSuccess() throws Exception {
                 Setor setor = Setor.builder().id(1L).nome("Setor ABC").codigo("SETOR_ABC").build();
 
-                when(setorService.getById(1L)).thenReturn(setor);
+                when(setorService.findById(1L)).thenReturn(setor);
 
                 mockMvc.perform(get(SetorController.ENDPOINT + "/" + setor.getId())) //
                                 .andExpect(status().isOk()) //
@@ -76,7 +76,7 @@ public class SetorControllerTest {
 
         @Test
         void givenInvalidSetorId_whenFindById_thenReturnNotFound() throws Exception {
-                when(setorService.getById(anyLong())).thenThrow(NotFoundException.class);
+                when(setorService.findById(anyLong())).thenThrow(NotFoundException.class);
 
                 mockMvc.perform(get(SetorController.ENDPOINT + "/111")) //
                                 .andExpect(status().isNotFound());
