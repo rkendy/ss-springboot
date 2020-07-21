@@ -2,6 +2,7 @@ package br.uff.ihs.ss.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
@@ -9,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,6 +31,13 @@ public class SetorServiceTest {
     @InjectMocks
     private SetorServiceImpl setorService;
 
+    Setor setor;
+
+    @BeforeEach
+    public void setup() {
+        setor = SetorTestHelper.create("CODIGOX", "Nome Setor");
+    }
+
     @Test
     public void givenList_whenFindAll_thenReturnAllElements() {
         List<Setor> list = SetorTestHelper.createList();
@@ -44,15 +53,41 @@ public class SetorServiceTest {
     @Test
     public void givenValidId_whenFindById_thenReturnElement() {
 
-        Optional<Setor> setor = Optional.of(SetorTestHelper.create(Setor.Codigo.ALMOXARIFADO.name(), "Almoxarifado"));
+        Optional<Setor> setorOp = Optional.of(setor);
 
-        when(setorRepository.findById(anyLong())).thenReturn(setor);
+        when(setorRepository.findById(anyLong())).thenReturn(setorOp);
 
         Setor result = setorService.getById(1L);
 
         assertNotNull(result);
-        assertEquals(Setor.Codigo.ALMOXARIFADO.name(), result.getCodigo());
-        assertEquals("Almoxarifado", result.getNome());
+        assertEquals(setor.getCodigo(), result.getCodigo());
+        assertEquals(setor.getNome(), result.getNome());
 
+    }
+
+    @Test
+    public void givenSetor_whenCreate_thenCreateSuccess() {
+
+        when(setorRepository.save(any(Setor.class))).thenReturn(setor);
+
+        Setor result = setorService.create(setor);
+
+        assertNotNull(result);
+        assertEquals(setor.getCodigo(), result.getCodigo());
+        assertEquals(setor.getNome(), result.getNome());
+    }
+
+    @Test
+    public void givenSetor_whenUpdate_thenUpdateSuccess() {
+
+        Optional<Setor> setorOp = Optional.of(setor);
+        when(setorRepository.findById(anyLong())).thenReturn(setorOp);
+        when(setorRepository.save(any(Setor.class))).thenReturn(setor);
+
+        Setor result = setorService.update(1L, setor);
+
+        assertNotNull(result);
+        assertEquals(setor.getCodigo(), result.getCodigo());
+        assertEquals(setor.getNome(), result.getNome());
     }
 }
