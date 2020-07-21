@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.3.1.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+	id 'jacoco'
 }
 
 group = 'br.uff.ihs'
@@ -12,6 +13,7 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+	jacocoRuntime
 }
 
 repositories {
@@ -35,5 +37,14 @@ dependencies {
 }
 
 test {
-	useJUnitPlatform()
+	useJUnitPlatform()  {
+        finalizedBy jacocoTestReport // report is always generated after tests run
+        testLogging {
+            events 'passed', 'skipped', 'failed'
+        }
+    }
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
 }

@@ -84,6 +84,9 @@ public class SetorServiceTest {
         when(setorRepository.findById(anyLong())).thenReturn(setorOp);
         when(setorRepository.save(any(Setor.class))).thenReturn(setor);
 
+        setor.setEmail("email");
+        setor.setAtivo(true);
+        setor.setLotacao("lotacao");
         Setor result = setorService.update(1L, setor);
 
         assertNotNull(result);
