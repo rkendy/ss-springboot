@@ -34,80 +34,84 @@ import br.uff.ihs.ss.service.SetorService;
 @ExtendWith(MockitoExtension.class)
 public class SetorControllerTest {
 
-    @Mock
-    SetorService setorService;
+        @Mock
+        SetorService setorService;
 
-    @InjectMocks
-    SetorController setorController;
+        @InjectMocks
+        SetorController setorController;
 
-    MockMvc mockMvc;
+        MockMvc mockMvc;
 
-    @BeforeEach
-    void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(setorController) //
-                .setControllerAdvice(new NotFoundAdvice()) //
-                .build();
-    }
+        @BeforeEach
+        void setup() {
+                mockMvc = MockMvcBuilders.standaloneSetup(setorController) //
+                                .setControllerAdvice(new NotFoundAdvice()) //
+                                .build();
+        }
 
-    @Test
-    void givenSetorList_whenFindAll_thenSuccess() throws Exception {
-        List<Setor> list = SetorTestHelper.createList();
+        @Test
+        void givenSetorList_whenFindAll_thenSuccess() throws Exception {
+                List<Setor> list = SetorTestHelper.createList();
 
-        when(setorService.getAll()).thenReturn(list);
+                when(setorService.getAll()).thenReturn(list);
 
-        mockMvc.perform(get(SetorController.ENDPOINT)) //
-                .andExpect(status().isOk()) //
-                .andExpect(jsonPath("$.length()", is(list.size())))
-                .andExpect(jsonPath("$[0].nome", is(list.get(0).getNome())))
-                .andExpect(jsonPath("$[0].codigo", is(list.get(0).getCodigo())));
-    }
+                mockMvc.perform(get(SetorController.ENDPOINT)) //
+                                .andExpect(status().isOk()) //
+                                .andExpect(jsonPath("$.length()", is(list.size())))
+                                .andExpect(jsonPath("$[0].nome", is(list.get(0).getNome())))
+                                .andExpect(jsonPath("$[0].codigo", is(list.get(0).getCodigo())));
+        }
 
-    @Test
-    void givenValidId_whenFindById_thenSuccess() throws Exception {
-        Setor setor = Setor.builder().id(1L).nome("Setor ABC").codigo("SETOR_ABC").build();
+        @Test
+        void givenValidId_whenFindById_thenSuccess() throws Exception {
+                Setor setor = Setor.builder().id(1L).nome("Setor ABC").codigo("SETOR_ABC").build();
 
-        when(setorService.getById(1L)).thenReturn(setor);
+                when(setorService.getById(1L)).thenReturn(setor);
 
-        mockMvc.perform(get(SetorController.ENDPOINT + "/" + setor.getId())) //
-                .andExpect(status().isOk()) //
-                .andExpect(jsonPath("$.id").value(setor.getId())) //
-                .andExpect(jsonPath("$.codigo").value(setor.getCodigo())) //
-                .andExpect(jsonPath("$.nome").value(setor.getNome()));
+                mockMvc.perform(get(SetorController.ENDPOINT + "/" + setor.getId())) //
+                                .andExpect(status().isOk()) //
+                                .andExpect(jsonPath("$.id").value(setor.getId())) //
+                                .andExpect(jsonPath("$.codigo").value(setor.getCodigo())) //
+                                .andExpect(jsonPath("$.nome").value(setor.getNome()));
 
-    }
+        }
 
-    @Test
-    void givenInvalidSetorId_whenFindById_thenReturnNotFound() throws Exception {
-        when(setorService.getById(anyLong())).thenThrow(NotFoundException.class);
+        @Test
+        void givenInvalidSetorId_whenFindById_thenReturnNotFound() throws Exception {
+                when(setorService.getById(anyLong())).thenThrow(NotFoundException.class);
 
-        mockMvc.perform(get(SetorController.ENDPOINT + "/111")) //
-                .andExpect(status().isNotFound());
-    }
+                mockMvc.perform(get(SetorController.ENDPOINT + "/111")) //
+                                .andExpect(status().isNotFound());
+        }
 
-    @Test
-    void givenSetor_whenCreate_thenSuccess() throws Exception {
-        Setor newSetor = SetorTestHelper.create("SETOR_ABC", "Setor ABC");
-        newSetor.setId(1L);
+        @Test
+        void givenSetor_whenCreate_thenSuccess() throws Exception {
+                Setor newSetor = SetorTestHelper.create("SETOR_ABC", "Setor ABC");
+                newSetor.setId(1L);
 
-        when(setorService.create(any(Setor.class))).thenReturn(newSetor);
+                when(setorService.create(any(Setor.class))).thenReturn(newSetor);
 
-        mockMvc.perform( //
-                post(SetorController.ENDPOINT) //
-                        .contentType(MediaType.APPLICATION_JSON) //
-                        .content("{}")) //
-                .andExpect(status().isCreated());
-    }
+                mockMvc.perform( //
+                                post(SetorController.ENDPOINT) //
+                                                .contentType(MediaType.APPLICATION_JSON) //
+                                                .content("{}")) //
+                                .andExpect(status().isCreated()) //
+                                .andExpect(jsonPath("nome").value(newSetor.getNome())) //
+                                .andExpect(jsonPath("codigo").value(newSetor.getCodigo()));
+        }
 
-    @Test
-    void givenSetor_whenUpdate_thenSuccess() throws Exception {
-        Setor newSetor = SetorTestHelper.create("SETOR_ABC", "Setor ABC");
+        @Test
+        void givenSetor_whenUpdate_thenSuccess() throws Exception {
+                Setor updated = SetorTestHelper.create("SETOR_ABC", "Setor ABC");
 
-        when(setorService.update(anyLong(), any(Setor.class))).thenReturn(newSetor);
+                when(setorService.update(anyLong(), any(Setor.class))).thenReturn(updated);
 
-        mockMvc.perform( //
-                put(SetorController.ENDPOINT + "/1") //
-                        .contentType(MediaType.APPLICATION_JSON) //
-                        .content("{}")) //
-                .andExpect(status().isOk());
-    }
+                mockMvc.perform( //
+                                put(SetorController.ENDPOINT + "/1") //
+                                                .contentType(MediaType.APPLICATION_JSON) //
+                                                .content("{}")) //
+                                .andExpect(status().isOk()) //
+                                .andExpect(jsonPath("nome").value(updated.getNome()))
+                                .andExpect(jsonPath("codigo").value(updated.getCodigo()));
+        }
 }
