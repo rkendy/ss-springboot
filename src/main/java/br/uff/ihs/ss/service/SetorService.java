@@ -15,5 +15,5 @@ public interface SetorService {
 
     Setor update(Long id, Setor setor);
 
-    // void delete(Long id);
+    void delete(Long id);
 }

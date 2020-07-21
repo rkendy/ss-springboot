@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +54,11 @@ public class SetorController {
     public ResponseEntity<SetorDto> updateSetor(@PathVariable Long id, @RequestBody @Valid SetorDto setorDto) {
         Setor updatedSetor = setorService.update(id, MapperUtil.convertToEntity(setorDto, Setor.class));
         return ResponseEntity.ok(MapperUtil.convertToDto(updatedSetor, SetorDto.class));
+    }
+
+    @DeleteMapping(ENDPOINT_ID)
+    public void deleteSetor(@PathVariable Long id) {
+        setorService.delete(id);
     }
 
 }

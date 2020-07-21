@@ -3,10 +3,12 @@ package br.uff.ihs.ss.controller;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,84 +34,93 @@ import br.uff.ihs.ss.util.MapperUtil;
 @ExtendWith(MockitoExtension.class)
 public class SetorControllerTest {
 
-        @Mock
-        SetorService setorService;
+    @Mock
+    SetorService setorService;
 
-        @InjectMocks
-        SetorController setorController;
+    @InjectMocks
+    SetorController setorController;
 
-        MockMvc mockMvc;
+    MockMvc mockMvc;
 
-        @BeforeEach
-        void setup() {
-                mockMvc = MockMvcBuilders.standaloneSetup(setorController) //
-                                .setControllerAdvice(new NotFoundAdvice()) //
-                                .build();
-        }
+    @BeforeEach
+    void setup() {
+        mockMvc = MockMvcBuilders.standaloneSetup(setorController) //
+                .setControllerAdvice(new NotFoundAdvice()) //
+                .build();
+    }
 
-        @Test
-        void givenSetorList_whenFindAll_thenSuccess() throws Exception {
-                List<Setor> list = SetorTestHelper.createList();
+    @Test
+    void givenSetorList_whenFindAll_thenSuccess() throws Exception {
+        List<Setor> list = SetorTestHelper.createList();
 
-                when(setorService.findAll()).thenReturn(list);
+        when(setorService.findAll()).thenReturn(list);
 
-                mockMvc.perform(get(SetorController.ENDPOINT)) //
-                                .andExpect(status().isOk()) //
-                                .andExpect(jsonPath("$.length()", is(list.size())))
-                                .andExpect(jsonPath("$[0].nome", is(list.get(0).getNome())))
-                                .andExpect(jsonPath("$[0].codigo", is(list.get(0).getCodigo())));
-        }
+        mockMvc.perform(get(SetorController.ENDPOINT)) //
+                .andExpect(status().isOk()) //
+                .andExpect(jsonPath("$.length()", is(list.size())))
+                .andExpect(jsonPath("$[0].nome", is(list.get(0).getNome())))
+                .andExpect(jsonPath("$[0].codigo", is(list.get(0).getCodigo())));
+    }
 
-        @Test
-        void givenValidId_whenFindById_thenSuccess() throws Exception {
-                Setor setor = Setor.builder().id(1L).nome("Setor ABC").codigo("SETOR_ABC").build();
+    @Test
+    void givenValidId_whenFindById_thenSuccess() throws Exception {
+        Setor setor = Setor.builder().id(1L).nome("Setor ABC").codigo("SETOR_ABC").build();
 
-                when(setorService.findById(1L)).thenReturn(setor);
+        when(setorService.findById(1L)).thenReturn(setor);
 
-                mockMvc.perform(get(SetorController.ENDPOINT + "/" + setor.getId())) //
-                                .andExpect(status().isOk()) //
-                                .andExpect(jsonPath("$.id").value(setor.getId())) //
-                                .andExpect(jsonPath("$.codigo").value(setor.getCodigo())) //
-                                .andExpect(jsonPath("$.nome").value(setor.getNome()));
+        mockMvc.perform(get(SetorController.ENDPOINT + "/" + setor.getId())) //
+                .andExpect(status().isOk()) //
+                .andExpect(jsonPath("$.id").value(setor.getId())) //
+                .andExpect(jsonPath("$.codigo").value(setor.getCodigo())) //
+                .andExpect(jsonPath("$.nome").value(setor.getNome()));
 
-        }
+    }
 
-        @Test
-        void givenInvalidSetorId_whenFindById_thenReturnNotFound() throws Exception {
-                when(setorService.findById(anyLong())).thenThrow(NotFoundException.class);
+    @Test
+    void givenInvalidSetorId_whenFindById_thenReturnNotFound() throws Exception {
+        when(setorService.findById(anyLong())).thenThrow(NotFoundException.class);
 
-                mockMvc.perform(get(SetorController.ENDPOINT + "/111")) //
-                                .andExpect(status().isNotFound());
-        }
+        mockMvc.perform(get(SetorController.ENDPOINT + "/111")) //
+                .andExpect(status().isNotFound());
+    }
 
-        @Test
-        void givenSetor_whenCreate_thenSuccess() throws Exception {
-                Setor newSetor = SetorTestHelper.create("SETOR_ABC", "Setor ABC");
-                newSetor.setId(1L);
+    @Test
+    void givenSetor_whenCreate_thenSuccess() throws Exception {
+        Setor newSetor = SetorTestHelper.create("SETOR_ABC", "Setor ABC");
+        newSetor.setId(1L);
 
-                when(setorService.create(any(Setor.class))).thenReturn(newSetor);
+        when(setorService.create(any(Setor.class))).thenReturn(newSetor);
 
-                mockMvc.perform( //
-                                post(SetorController.ENDPOINT) //
-                                                .contentType(MediaType.APPLICATION_JSON) //
-                                                .content(MapperUtil.convertToJson(newSetor))) //
-                                .andExpect(status().isCreated()) //
-                                .andExpect(jsonPath("nome").value(newSetor.getNome())) //
-                                .andExpect(jsonPath("codigo").value(newSetor.getCodigo()));
-        }
+        mockMvc.perform( //
+                post(SetorController.ENDPOINT) //
+                        .contentType(MediaType.APPLICATION_JSON) //
+                        .content(MapperUtil.convertToJson(newSetor))) //
+                .andExpect(status().isCreated()) //
+                .andExpect(jsonPath("nome").value(newSetor.getNome())) //
+                .andExpect(jsonPath("codigo").value(newSetor.getCodigo()));
+    }
 
-        @Test
-        void givenSetor_whenUpdate_thenSuccess() throws Exception {
-                Setor updated = SetorTestHelper.create("SETOR_ABC", "Setor ABC");
+    @Test
+    void givenSetor_whenUpdate_thenSuccess() throws Exception {
+        Setor updated = SetorTestHelper.create("SETOR_ABC", "Setor ABC");
 
-                when(setorService.update(anyLong(), any(Setor.class))).thenReturn(updated);
+        when(setorService.update(anyLong(), any(Setor.class))).thenReturn(updated);
 
-                mockMvc.perform( //
-                                put(SetorController.ENDPOINT + "/1") //
-                                                .contentType(MediaType.APPLICATION_JSON) //
-                                                .content(MapperUtil.convertToJson(updated))) //
-                                .andExpect(status().isOk()) //
-                                .andExpect(jsonPath("nome").value(updated.getNome()))
-                                .andExpect(jsonPath("codigo").value(updated.getCodigo()));
-        }
+        mockMvc.perform( //
+                put(SetorController.ENDPOINT + "/1") //
+                        .contentType(MediaType.APPLICATION_JSON) //
+                        .content(MapperUtil.convertToJson(updated))) //
+                .andExpect(status().isOk()) //
+                .andExpect(jsonPath("nome").value(updated.getNome()))
+                .andExpect(jsonPath("codigo").value(updated.getCodigo()));
+    }
+
+    @Test
+    void givenId_whenDelete_thenSuccess() throws Exception {
+        doNothing().when(setorService).delete(anyLong());
+
+        mockMvc.perform( //
+                delete(SetorController.ENDPOINT + "/1")) //
+                .andExpect(status().isOk()); //
+    }
 }

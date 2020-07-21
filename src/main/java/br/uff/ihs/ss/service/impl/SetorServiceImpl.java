@@ -50,4 +50,10 @@ public class SetorServiceImpl implements SetorService {
         return setorRepository.save(setorToUpdate);
     }
 
+    @Override
+    public void delete(Long id) {
+        Setor setorToDelete = setorRepository.findById(id).orElseThrow(() -> new NotFoundException(Setor.class, id));
+        setorRepository.delete(setorToDelete);
+    }
+
 }

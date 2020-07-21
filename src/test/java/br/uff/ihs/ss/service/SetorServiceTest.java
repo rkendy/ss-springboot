@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Collection;
@@ -41,7 +44,6 @@ public class SetorServiceTest {
     @Test
     public void givenList_whenFindAll_thenReturnAllElements() {
         List<Setor> list = SetorTestHelper.createList();
-
         when(setorRepository.findAll()).thenReturn(list);
 
         Iterable<Setor> result = setorService.findAll();
@@ -54,7 +56,6 @@ public class SetorServiceTest {
     public void givenValidId_whenFindById_thenReturnElement() {
 
         Optional<Setor> setorOp = Optional.of(setor);
-
         when(setorRepository.findById(anyLong())).thenReturn(setorOp);
 
         Setor result = setorService.findById(1L);
@@ -92,5 +93,17 @@ public class SetorServiceTest {
         assertNotNull(result);
         assertEquals(setor.getCodigo(), result.getCodigo());
         assertEquals(setor.getNome(), result.getNome());
+    }
+
+    @Test
+    public void givenId_whenDelete_thenSuccess() {
+        Optional<Setor> setorOp = Optional.of(setor);
+        when(setorRepository.findById(anyLong())).thenReturn(setorOp);
+        doNothing().when(setorRepository).delete(any(Setor.class));
+
+        setorService.delete(1L);
+
+        verify(setorRepository, times(1)).findById(anyLong());
+        verify(setorRepository, times(1)).delete(any(Setor.class));
     }
 }

@@ -92,7 +92,7 @@ public class SetorControlerTestIT {
     }
 
     @Test
-    public void givenValidProject_whenUpdate_thenReturnSuccess() {
+    public void givenValidSetor_whenUpdate_thenReturnSuccess() {
         SetorDto setorDto = MapperUtil.convertToDto(setor, SetorDto.class);
         setorDto.setCodigo("NOVOCODIGO");
         setorDto.setLotacao("06");
@@ -105,6 +105,20 @@ public class SetorControlerTestIT {
         assertEquals(setorDto.getNome(), result.getNome());
         assertEquals(setorDto.getEmail(), result.getEmail());
         assertEquals(setorDto.getLotacao(), result.getLotacao());
+    }
+
+    @Test
+    public void givenValidId_whenUpdate_thenReturnSuccess() {
+
+        setorService.create(SetorTestHelper.create("codigo", "nome"));
+        int countBefore = setorService.findAll().size();
+        Long id = setorService.findAll().get(countBefore - 1).getId();
+
+        ResponseEntity<String> response = makeDeleteRequest(id.toString());
+
+        int countAfter = setorService.findAll().size();
+        assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
+        assertEquals(countBefore, countAfter + 1);
     }
 
     private ResponseEntity<String> makeGetRequest(String id) {
@@ -121,6 +135,12 @@ public class SetorControlerTestIT {
     private ResponseEntity<String> makePutRequest(String jsonStr, String id) {
         HttpEntity<String> entity = new HttpEntity<String>(jsonStr, headers);
         return restTemplate.exchange(createURLWithPort(SetorController.ENDPOINT + "/" + id), HttpMethod.PUT, entity,
+                String.class);
+    }
+
+    private ResponseEntity<String> makeDeleteRequest(String id) {
+        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+        return restTemplate.exchange(createURLWithPort(SetorController.ENDPOINT + "/" + id), HttpMethod.DELETE, entity,
                 String.class);
     }
 
