@@ -6,9 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +23,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@DynamicUpdate
 @Table(name = "setor")
 public class Setor implements Serializable {
 
@@ -39,6 +41,14 @@ public class Setor implements Serializable {
     private String email;
     private String lotacao;
     private Boolean ativo;
+
+    @PrePersist
+    void preInsert() {
+        if (this.lotacao == null)
+            this.lotacao = "01";
+        if (this.ativo == null)
+            this.ativo = true;
+    }
 
     // @ManyToMany
     // @JoinTable(

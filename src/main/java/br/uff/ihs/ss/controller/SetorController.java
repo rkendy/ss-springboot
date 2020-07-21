@@ -2,6 +2,8 @@ package br.uff.ihs.ss.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,13 +44,13 @@ public class SetorController {
     }
 
     @PostMapping
-    public ResponseEntity<SetorDto> createSetor(@RequestBody SetorDto setorDto) {
+    public ResponseEntity<SetorDto> createSetor(@RequestBody @Valid SetorDto setorDto) {
         Setor newSetor = setorService.create(MapperUtil.convertToEntity(setorDto, Setor.class));
         return ResponseEntity.status(HttpStatus.CREATED).body(MapperUtil.convertToDto(newSetor, SetorDto.class));
     }
 
     @PutMapping(ENDPOINT_ID)
-    public ResponseEntity<SetorDto> updateSetor(@PathVariable Long id, @RequestBody SetorDto setorDto) {
+    public ResponseEntity<SetorDto> updateSetor(@PathVariable Long id, @RequestBody @Valid SetorDto setorDto) {
         Setor updatedSetor = setorService.update(id, MapperUtil.convertToEntity(setorDto, Setor.class));
         return ResponseEntity.ok(MapperUtil.convertToDto(updatedSetor, SetorDto.class));
     }

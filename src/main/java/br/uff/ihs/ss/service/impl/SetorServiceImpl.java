@@ -41,17 +41,11 @@ public class SetorServiceImpl implements SetorService {
     @Override
     public Setor update(Long id, Setor setor) {
         Setor setorToUpdate = setorRepository.findById(id).orElseThrow(() -> new NotFoundException(Setor.class, id));
-
-        if (setor.getAtivo() != null)
-            setorToUpdate.setAtivo(setor.getAtivo());
-        if (setor.getCodigo() != null)
-            setorToUpdate.setCodigo(setor.getCodigo());
-        if (setor.getEmail() != null)
-            setorToUpdate.setEmail(setor.getEmail());
-        if (setor.getLotacao() != null)
-            setorToUpdate.setLotacao(setor.getLotacao());
-        if (setor.getNome() != null)
-            setorToUpdate.setNome(setor.getNome());
+        setorToUpdate.setAtivo(setor.getAtivo());
+        setorToUpdate.setCodigo(setor.getCodigo());
+        setorToUpdate.setEmail(setor.getEmail());
+        setorToUpdate.setLotacao(setor.getLotacao());
+        setorToUpdate.setNome(setor.getNome());
         return setorRepository.save(setorToUpdate);
     }
 

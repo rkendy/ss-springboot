@@ -11,14 +11,15 @@ content-type: application/json
 {
 	"codigo": "CODIGOX",
 	"nome": "Nome Setor",
-	"lotacao": "01"
+	"lotacao": "02"
 }
 
 ### Update Setor:
-PUT http://localhost:8080/api/setor/26 HTTP/1.1
+PUT http://localhost:8080/api/setor/29 HTTP/1.1
 content-type: application/json
 
 {
-	"codigo": "NOVOCOD",
-	"lotacao": "02"
+	"codigo": "CODIGOX",
+	"nome": "Nome Setor",
+	"lotacao": "00"
 }

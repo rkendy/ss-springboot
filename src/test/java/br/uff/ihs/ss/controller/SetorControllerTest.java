@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -19,8 +18,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -30,6 +27,7 @@ import br.uff.ihs.ss.controller.advice.NotFoundAdvice;
 import br.uff.ihs.ss.exception.NotFoundException;
 import br.uff.ihs.ss.model.Setor;
 import br.uff.ihs.ss.service.SetorService;
+import br.uff.ihs.ss.util.MapperUtil;
 
 @ExtendWith(MockitoExtension.class)
 public class SetorControllerTest {
@@ -94,7 +92,7 @@ public class SetorControllerTest {
                 mockMvc.perform( //
                                 post(SetorController.ENDPOINT) //
                                                 .contentType(MediaType.APPLICATION_JSON) //
-                                                .content("{}")) //
+                                                .content(MapperUtil.convertToJson(newSetor))) //
                                 .andExpect(status().isCreated()) //
                                 .andExpect(jsonPath("nome").value(newSetor.getNome())) //
                                 .andExpect(jsonPath("codigo").value(newSetor.getCodigo()));
@@ -109,7 +107,7 @@ public class SetorControllerTest {
                 mockMvc.perform( //
                                 put(SetorController.ENDPOINT + "/1") //
                                                 .contentType(MediaType.APPLICATION_JSON) //
-                                                .content("{}")) //
+                                                .content(MapperUtil.convertToJson(updated))) //
                                 .andExpect(status().isOk()) //
                                 .andExpect(jsonPath("nome").value(updated.getNome()))
                                 .andExpect(jsonPath("codigo").value(updated.getCodigo()));
