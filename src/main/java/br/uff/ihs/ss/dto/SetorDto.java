@@ -8,5 +8,6 @@ public class SetorDto {
     private String nome;
     private String codigo;
     private String email;
+    private String lotacao;
     private Boolean ativo;
 }

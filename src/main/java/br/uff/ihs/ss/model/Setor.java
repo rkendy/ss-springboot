@@ -2,14 +2,13 @@ package br.uff.ihs.ss.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@DynamicUpdate
 @Table(name = "setor")
 public class Setor implements Serializable {
 
@@ -37,7 +37,7 @@ public class Setor implements Serializable {
     private String nome;
     private String codigo;
     private String email;
-    private String lotacao = "01";
+    private String lotacao;
     private Boolean ativo;
 
     // @ManyToMany
