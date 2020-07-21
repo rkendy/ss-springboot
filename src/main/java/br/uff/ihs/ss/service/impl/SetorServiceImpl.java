@@ -2,6 +2,7 @@ package br.uff.ihs.ss.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,17 @@ public class SetorServiceImpl implements SetorService {
     @Override
     public Setor create(Setor setor) {
         return setorRepository.save(setor);
+    }
+
+    @Override
+    public Setor update(Long id, Setor setor) {
+        Setor setorToUpdate = setorRepository.findById(id).orElseThrow(() -> new NotFoundException(Setor.class, id));
+        setorToUpdate.setAtivo(setor.getAtivo());
+        setorToUpdate.setCodigo(setor.getCodigo());
+        setorToUpdate.setEmail(setor.getEmail());
+        setorToUpdate.setLotacao(setor.getLotacao());
+        setorToUpdate.setNome(setor.getNome());
+        return setorRepository.save(setorToUpdate);
     }
 
 }

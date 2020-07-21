@@ -1,27 +1,22 @@
 package br.uff.ihs.ss.controller;
 
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.uff.ihs.ss.util.MapperUtil;
 import br.uff.ihs.ss.dto.SetorDto;
 import br.uff.ihs.ss.model.Setor;
 import br.uff.ihs.ss.service.SetorService;
+import br.uff.ihs.ss.util.MapperUtil;
 
 @RestController
 // @RequestMapping(value = SetorController.ENDPOINT, consumes =
@@ -50,6 +45,12 @@ public class SetorController {
     public ResponseEntity<SetorDto> createSetor(@RequestBody SetorDto setorDto) {
         Setor newSetor = setorService.create(MapperUtil.convertToEntity(setorDto, Setor.class));
         return ResponseEntity.status(HttpStatus.CREATED).body(MapperUtil.convertToDto(newSetor, SetorDto.class));
+    }
+
+    @PutMapping(ENDPOINT_ID)
+    public ResponseEntity<SetorDto> updateSetor(@PathVariable Long id, @RequestBody SetorDto setorDto) {
+        Setor updatedSetor = setorService.update(id, MapperUtil.convertToEntity(setorDto, Setor.class));
+        return ResponseEntity.ok(MapperUtil.convertToDto(updatedSetor, SetorDto.class));
     }
 
 }

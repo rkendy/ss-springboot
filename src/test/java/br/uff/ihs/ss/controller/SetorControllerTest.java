@@ -6,6 +6,8 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -94,5 +96,18 @@ public class SetorControllerTest {
                         .contentType(MediaType.APPLICATION_JSON) //
                         .content("{}")) //
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    void givenSetor_whenUpdate_thenSuccess() throws Exception {
+        Setor newSetor = SetorTestHelper.create("SETOR_ABC", "Setor ABC");
+
+        when(setorService.update(anyLong(), any(Setor.class))).thenReturn(newSetor);
+
+        mockMvc.perform( //
+                put(SetorController.ENDPOINT + "/1") //
+                        .contentType(MediaType.APPLICATION_JSON) //
+                        .content("{}")) //
+                .andExpect(status().isOk());
     }
 }
