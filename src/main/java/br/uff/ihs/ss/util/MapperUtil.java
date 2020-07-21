@@ -28,11 +28,18 @@ public final class MapperUtil {
     public static String convertToJson(Object obj) {
         String result = "";
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            result = mapper.writeValueAsString(obj);
+            result = objectMapper.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
         }
         return result;
+    }
+
+    static public <D> D convertFromJson(String json, Class<D> bean) {
+        try {
+            return objectMapper.readValue(json, bean);
+        } catch (Exception e) {
+        }
+        return null;
     }
 
 }

@@ -1,10 +1,10 @@
 package br.uff.ihs.ss.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-import java.util.Map;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -75,17 +75,36 @@ public class SetorControlerTestIT {
         Setor newSetor = SetorTestHelper.create("Codigo", "Nome Setor");
 
         ResponseEntity<String> response = makePostRequest(MapperUtil.convertToJson(newSetor));
+        Setor result = MapperUtil.convertFromJson(response.getBody(), Setor.class);
 
+        // Check status code:
         assertEquals(HttpStatus.CREATED.value(), response.getStatusCodeValue());
+
+        // Check returned values:
+        assertNotNull(result.getId());
+        assertEquals(newSetor.getCodigo(), result.getCodigo());
+        assertEquals(newSetor.getNome(), result.getNome());
+        assertEquals(newSetor.getEmail(), result.getEmail());
+
+        // Check default values:
+        assertEquals(true, result.getAtivo());
+        assertEquals("01", result.getLotacao());
     }
 
     @Test
     public void givenValidProject_whenUpdate_thenReturnSuccess() {
         SetorDto setorDto = MapperUtil.convertToDto(setor, SetorDto.class);
         setorDto.setCodigo("NOVOCODIGO");
-        String jsonStr = MapperUtil.convertToJson(setorDto);
-        ResponseEntity<String> response = makePutRequest(jsonStr, "1");
+        setorDto.setLotacao("06");
+
+        ResponseEntity<String> response = makePutRequest(MapperUtil.convertToJson(setorDto), "1");
+        Setor result = MapperUtil.convertFromJson(response.getBody(), Setor.class);
+
         assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
+        assertEquals(setorDto.getCodigo(), result.getCodigo());
+        assertEquals(setorDto.getNome(), result.getNome());
+        assertEquals(setorDto.getEmail(), result.getEmail());
+        assertEquals(setorDto.getLotacao(), result.getLotacao());
     }
 
     private ResponseEntity<String> makeGetRequest(String id) {
@@ -100,7 +119,6 @@ public class SetorControlerTestIT {
     }
 
     private ResponseEntity<String> makePutRequest(String jsonStr, String id) {
-        String url = createURLWithPort(SetorController.ENDPOINT) + "/" + id;
         HttpEntity<String> entity = new HttpEntity<String>(jsonStr, headers);
         return restTemplate.exchange(createURLWithPort(SetorController.ENDPOINT + "/" + id), HttpMethod.PUT, entity,
                 String.class);
