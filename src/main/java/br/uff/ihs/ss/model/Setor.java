@@ -9,10 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-
+import br.uff.ihs.ss.dto.CrudDto;
+import br.uff.ihs.ss.dto.SetorDto;
+import br.uff.ihs.ss.util.MapperUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +23,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "setor")
-public class Setor implements Serializable {
+public class Setor implements Serializable, CrudDto {
 
     private static final long serialVersionUID = 6523249791587614649L;
 
@@ -62,4 +61,10 @@ public class Setor implements Serializable {
 
     // @ManyToMany(mappedBy = "setores")
     // List<Usuario> usuarios;
+
+    @Override
+    public Object toDto() {
+        return MapperUtil.convertToDto(this, SetorDto.class);
+    }
+
 }

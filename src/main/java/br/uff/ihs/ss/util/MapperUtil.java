@@ -17,7 +17,7 @@ public final class MapperUtil {
         return modelMapper.map(bean, dto);
     }
 
-    public static <D> List<D> convertToDtoList(List<?> list, Class<D> dto) {
+    public static <B, D> List<D> convertToDtoList(List<B> list, Class<D> dto) {
         return list.stream().map(e -> convertToDto(e, dto)).collect(Collectors.toList());
     }
 
