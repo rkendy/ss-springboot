@@ -20,7 +20,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import br.uff.ihs.ss.SetorTestHelper;
 import br.uff.ihs.ss.model.Setor;
 import br.uff.ihs.ss.repository.SetorRepository;
 import br.uff.ihs.ss.service.impl.SetorServiceImpl;
@@ -38,12 +37,12 @@ public class SetorServiceTest {
 
     @BeforeEach
     public void setup() {
-        setor = SetorTestHelper.create("CODIGOX", "Nome Setor");
+        setor = Setor.builder().codigo("CODIGOX").nome("Nome Setor").build();
     }
 
     @Test
     public void givenList_whenFindAll_thenReturnAllElements() {
-        List<Setor> list = SetorTestHelper.createList();
+        List<Setor> list = createList();
         when(setorRepository.findAll()).thenReturn(list);
 
         Iterable<Setor> result = setorService.findAll();
@@ -105,5 +104,11 @@ public class SetorServiceTest {
 
         verify(setorRepository, times(1)).findById(anyLong());
         verify(setorRepository, times(1)).delete(any(Setor.class));
+    }
+
+    private List<Setor> createList() {
+        return List.of( //
+                Setor.builder().codigo(Setor.Codigo.ALMOXARIFADO.name()).nome("Almoxarifado").build(),
+                Setor.builder().codigo(Setor.Codigo.INFORMATICA.name()).nome("Informática").build());
     }
 }

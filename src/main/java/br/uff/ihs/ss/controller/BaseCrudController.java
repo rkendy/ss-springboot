@@ -21,7 +21,7 @@ import br.uff.ihs.ss.service.CrudService;
 
 public class BaseCrudController<M extends CrudModel<D>, D extends CrudDto<M>> {
 
-    final private String ENDPOINT_ID = "/{id}";
+    final public String ENDPOINT_ID = "/{id}";
 
     @Autowired
     private CrudService<M> service;
