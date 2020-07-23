@@ -26,39 +26,35 @@ public class BaseCrudController<M extends CrudModel<D>, D extends CrudDto<M>> {
     @Autowired
     private CrudService<M> service;
 
-    public void setService(CrudService<M> service) {
-        this.service = service;
-    }
-
     @GetMapping
-    public ResponseEntity<List<D>> getAllSetor() {
+    public ResponseEntity<List<D>> findAll() {
         List<M> list = service.findAll();
         List<D> listDto = new ArrayList<>();
         list.forEach(e -> {
-            listDto.add((D) e.toDto());
+            listDto.add(e.toDto());
         });
         return ResponseEntity.ok(listDto);
     }
 
     @GetMapping(ENDPOINT_ID)
-    public ResponseEntity<D> getSetor(@PathVariable Long id) {
+    public ResponseEntity<D> getById(@PathVariable Long id) {
         return ResponseEntity.ok((D) service.findById(id).toDto());
     }
 
     @PostMapping
-    public ResponseEntity<D> createSetor(@RequestBody @Valid D dto) {
-        M newSetor = service.create(dto.toModel());
-        return ResponseEntity.status(HttpStatus.CREATED).body(newSetor.toDto());
+    public ResponseEntity<D> create(@RequestBody @Valid D dto) {
+        M created = service.create(dto.toModel());
+        return ResponseEntity.status(HttpStatus.CREATED).body(created.toDto());
     }
 
     @PutMapping(ENDPOINT_ID)
-    public ResponseEntity<D> updateSetor(@PathVariable Long id, @RequestBody @Valid D dto) {
-        M updatedSetor = service.update(id, dto.toModel());
-        return ResponseEntity.ok(updatedSetor.toDto());
+    public ResponseEntity<D> update(@PathVariable Long id, @RequestBody @Valid D dto) {
+        M updated = service.update(id, dto.toModel());
+        return ResponseEntity.ok(updated.toDto());
     }
 
     @DeleteMapping(ENDPOINT_ID)
-    public void deleteSetor(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         service.delete(id);
     }
 }
