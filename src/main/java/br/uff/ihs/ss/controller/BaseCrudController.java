@@ -1,6 +1,5 @@
 package br.uff.ihs.ss.controller;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,55 +14,47 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import br.uff.ihs.ss.dto.CrudDto;
-import br.uff.ihs.ss.dto.SetorDto;
 import br.uff.ihs.ss.model.CrudModel;
 import br.uff.ihs.ss.service.CrudService;
-import br.uff.ihs.ss.util.MapperUtil;
 
-public class BaseCrudController<B extends CrudDto, D extends CrudModel> {
+public class BaseCrudController<M extends CrudModel<D>, D extends CrudDto<M>> {
 
     final private String ENDPOINT_ID = "/{id}";
 
     @Autowired
-    private CrudService<B> service;
+    private CrudService<M> service;
 
-    public void setService(CrudService<B> service) {
+    public void setService(CrudService<M> service) {
         this.service = service;
     }
 
     @GetMapping
     public ResponseEntity<List<D>> getAllSetor() {
-        List<B> list = service.findAll();
-        List<D> listDto = new ArrayList<>(); // = MapperUtil.convertToDtoList(list, dto.getClass().;
+        List<M> list = service.findAll();
+        List<D> listDto = new ArrayList<>();
         list.forEach(e -> {
             listDto.add((D) e.toDto());
         });
         return ResponseEntity.ok(listDto);
-
-        // return ResponseEntity.ok(MapperUtil.convertToDtoList(list, Setor.class ));
     }
 
     @GetMapping(ENDPOINT_ID)
     public ResponseEntity<D> getSetor(@PathVariable Long id) {
         return ResponseEntity.ok((D) service.findById(id).toDto());
-        // return ResponseEntity.ok(MapperUtil.convertToDto(service.findById(id),
-        // SetorDto.class));
-        // return ResponseEntity.ok(setorService.getById(id));
     }
 
     @PostMapping
-    public ResponseEntity<D> createSetor(@RequestBody @Valid D setorDto) {
-        B newSetor = service.create((B) setorDto.toBean());
-        return ResponseEntity.status(HttpStatus.CREATED).body((D) newSetor.toDto());
+    public ResponseEntity<D> createSetor(@RequestBody @Valid D dto) {
+        M newSetor = service.create(dto.toModel());
+        return ResponseEntity.status(HttpStatus.CREATED).body(newSetor.toDto());
     }
 
     @PutMapping(ENDPOINT_ID)
-    public ResponseEntity<SetorDto> updateSetor(@PathVariable Long id, @RequestBody @Valid SetorDto setorDto) {
-        B updatedSetor = service.update(id, (B) setorDto.toBean());
-        return ResponseEntity.ok(MapperUtil.convertToDto(updatedSetor, SetorDto.class));
+    public ResponseEntity<D> updateSetor(@PathVariable Long id, @RequestBody @Valid D dto) {
+        M updatedSetor = service.update(id, dto.toModel());
+        return ResponseEntity.ok(updatedSetor.toDto());
     }
 
     @DeleteMapping(ENDPOINT_ID)

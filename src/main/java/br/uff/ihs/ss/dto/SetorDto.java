@@ -7,7 +7,7 @@ import br.uff.ihs.ss.model.Setor;
 import lombok.Data;
 
 @Data
-public class SetorDto implements CrudModel {
+public class SetorDto implements CrudDto<Setor> {
     private Long id;
 
     @NotBlank(message = "Name is mandatory")
@@ -19,7 +19,7 @@ public class SetorDto implements CrudModel {
     private Boolean ativo;
 
     @Override
-    public Object toBean() {
+    public Setor toModel() {
         return Setor.builder() //
                 .id(this.id) //
                 .nome(this.nome) //

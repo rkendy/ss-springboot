@@ -1,5 +1,5 @@
 package br.uff.ihs.ss.model;
 
-public interface CrudModel {
-    public Object toBean();
+public interface CrudModel<D> {
+    public D toDto();
 }
