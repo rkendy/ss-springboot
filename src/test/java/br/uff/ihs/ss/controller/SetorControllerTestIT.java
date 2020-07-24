@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 import br.uff.ihs.ss.dto.SetorDto;
 import br.uff.ihs.ss.model.Setor;
-import br.uff.ihs.ss.service.SetorService;
+import br.uff.ihs.ss.service.impl.SetorServiceImpl;
 import br.uff.ihs.ss.util.MapperUtil;
 
 public class SetorControllerTestIT extends CrudControllerTestIT {
@@ -23,7 +23,7 @@ public class SetorControllerTestIT extends CrudControllerTestIT {
     int port;
 
     @Autowired
-    SetorService setorService;
+    SetorServiceImpl setorService;
 
     List<Setor> list;
     Setor setor;
