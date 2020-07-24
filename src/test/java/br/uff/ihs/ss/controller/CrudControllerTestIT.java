@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -16,15 +17,25 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import br.uff.ihs.ss.helper.TestHelper;
+import br.uff.ihs.ss.service.CrudService;
+import br.uff.ihs.ss.util.MapperUtil;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public abstract class CrudControllerTestIT {
+public abstract class CrudControllerTestIT<MODEL> {
 
     static HttpHeaders headers = new HttpHeaders();
     static TestRestTemplate restTemplate = new TestRestTemplate();
 
     @LocalServerPort
     int port;
+
+    @Autowired
+    CrudService<MODEL> service;
+
+    @Autowired
+    TestHelper<MODEL> helper;
 
     @BeforeAll
     static void setupAll() {
@@ -33,24 +44,13 @@ public abstract class CrudControllerTestIT {
 
     abstract public String getEndPoint();
 
-    abstract public Long getId();
-
-    abstract public String getJsonToCreate();
-
-    abstract public String getJsonFromDto();
-
-    abstract public void checkCreatedJson(String json);
-
-    abstract public void createModel();
-
-    abstract public int getCount();
-
-    abstract public Long getIdToDelete();
+    abstract public void checkCreatedJson(MODEL model, String json);
 
     @Test
     public void givenValidId_whenGet_thenReturnSuccess() {
+        MODEL model = service.findAll().get(0);
 
-        ResponseEntity<String> response = makeGetRequest(getId());
+        ResponseEntity<String> response = makeGetRequest(helper.getId(model));
 
         assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
     }
@@ -63,30 +63,33 @@ public abstract class CrudControllerTestIT {
 
     @Test
     public void givenModel_whenCreate_thenSuccess() {
-        int beforeCount = getCount();
-        ResponseEntity<String> response = makePostRequest(getJsonToCreate());
-        int afterCount = getCount();
+        int beforeCount = service.findAll().size();
+        MODEL model = helper.createOne();
+        ResponseEntity<String> response = makePostRequest(MapperUtil.convertToJson(model));
+        int afterCount = service.findAll().size();
         assertEquals(HttpStatus.CREATED.value(), response.getStatusCodeValue());
         assertEquals(beforeCount + 1, afterCount);
-        checkCreatedJson(response.getBody());
+        checkCreatedJson(model, response.getBody());
     }
 
     @Test
     public void givenValidModel_whenUpdate_thenReturnSuccess() {
 
-        ResponseEntity<String> response = makePutRequest(getJsonFromDto(), getId());
+        MODEL model = service.findAll().get(0);
+
+        ResponseEntity<String> response = makePutRequest(helper.convertToJson(model), helper.getId(model));
 
         assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
     }
 
     @Test
     public void givenValidId_whenDelete_thenReturnSuccess() {
-        createModel();
-        int countBefore = getCount();
+        MODEL newModel = service.create(helper.createOne());
+        int countBefore = service.findAll().size();
 
-        ResponseEntity<String> response = makeDeleteRequest(getIdToDelete());
+        ResponseEntity<String> response = makeDeleteRequest(helper.getId(newModel));
 
-        int countAfter = getCount();
+        int countAfter = service.findAll().size();
         assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
         assertEquals(countBefore, countAfter + 1);
     }

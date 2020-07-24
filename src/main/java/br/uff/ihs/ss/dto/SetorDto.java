@@ -1,7 +1,5 @@
 package br.uff.ihs.ss.dto;
 
-import java.io.Serializable;
-
 import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
