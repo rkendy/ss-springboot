@@ -14,9 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import br.uff.ihs.ss.dto.UsuarioDto;
@@ -63,6 +62,14 @@ public class Usuario implements Serializable, CrudModel<UsuarioDto> {
     @JoinTable(name = "setor_usuario", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "setor_id"))
     @OrderBy("nome ASC")
     List<Setor> setores;
+
+    @PrePersist
+    void preInsert() {
+        if (this.lotacao == null)
+            this.lotacao = "01";
+        if (this.ativo == null)
+            this.ativo = true;
+    }
 
     @Override
     public UsuarioDto toDto() {
