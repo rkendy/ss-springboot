@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
-import br.uff.ihs.ss.dto.CrudDto;
 import br.uff.ihs.ss.dto.SetorDto;
 import br.uff.ihs.ss.util.MapperUtil;
 import lombok.AllArgsConstructor;
