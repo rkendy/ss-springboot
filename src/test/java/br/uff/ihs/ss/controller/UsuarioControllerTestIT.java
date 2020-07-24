@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 import br.uff.ihs.ss.dto.UsuarioDto;
 import br.uff.ihs.ss.model.Usuario;
-import br.uff.ihs.ss.service.UsuarioService;
+import br.uff.ihs.ss.service.impl.UsuarioServiceImpl;
 import br.uff.ihs.ss.util.MapperUtil;
 
 public class UsuarioControllerTestIT extends CrudControllerTestIT {
@@ -23,7 +23,7 @@ public class UsuarioControllerTestIT extends CrudControllerTestIT {
     int port;
 
     @Autowired
-    UsuarioService usuarioService;
+    UsuarioServiceImpl usuarioService;
 
     List<Usuario> list;
     Usuario usuario;
