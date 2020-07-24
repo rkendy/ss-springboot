@@ -24,14 +24,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import br.uff.ihs.ss.controller.advice.NotFoundAdvice;
-import br.uff.ihs.ss.dto.CrudDto;
 import br.uff.ihs.ss.exception.NotFoundException;
-import br.uff.ihs.ss.model.CrudModel;
 import br.uff.ihs.ss.service.CrudService;
 import br.uff.ihs.ss.util.MapperUtil;
 
 @ExtendWith(MockitoExtension.class)
-public abstract class CrudControllerTest<MODEL extends CrudModel<DTO>, DTO extends CrudDto<MODEL>> {
+public abstract class CrudControllerTest<MODEL, DTO> {
 
     @Mock
     private CrudService<MODEL> service;

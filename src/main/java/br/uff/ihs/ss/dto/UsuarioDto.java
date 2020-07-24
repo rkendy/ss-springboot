@@ -1,12 +1,13 @@
 package br.uff.ihs.ss.dto;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotBlank;
 
-import br.uff.ihs.ss.model.Usuario;
 import lombok.Data;
 
 @Data
-public class UsuarioDto implements CrudDto<Usuario> {
+public class UsuarioDto {
     private Long id;
 
     @NotBlank(message = "Login is mandatory")
@@ -17,16 +18,5 @@ public class UsuarioDto implements CrudDto<Usuario> {
     private String email;
 
     private Boolean ativo;
-
-    @Override
-    public Usuario toModel() {
-        return Usuario.builder() //
-                .id(this.id) //
-                .login(this.login) //
-                .nome(this.nome) //
-                .email(this.email) //
-                .ativo(this.ativo) //
-                .build();
-    }
 
 }

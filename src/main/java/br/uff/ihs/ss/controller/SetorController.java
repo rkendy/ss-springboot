@@ -12,4 +12,14 @@ public class SetorController extends BaseCrudController<Setor, SetorDto> {
 
     public static final String ENDPOINT = "/api/setor";
 
+    @Override
+    protected Class<SetorDto> getDtoClass() {
+        return SetorDto.class;
+    }
+
+    @Override
+    protected Class<Setor> getModelClass() {
+        return Setor.class;
+    }
+
 }

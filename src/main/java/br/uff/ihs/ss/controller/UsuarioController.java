@@ -12,4 +12,14 @@ public class UsuarioController extends BaseCrudController<Usuario, UsuarioDto> {
 
     public static final String ENDPOINT = "/api/usuario";
 
+    @Override
+    protected Class<UsuarioDto> getDtoClass() {
+        return UsuarioDto.class;
+    }
+
+    @Override
+    protected Class<Usuario> getModelClass() {
+        return Usuario.class;
+    }
+
 }

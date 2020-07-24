@@ -26,6 +26,7 @@ public class UsuarioControllerTestIT extends CrudControllerTestIT {
     UsuarioServiceImpl usuarioService;
 
     List<Usuario> list;
+    UsuarioDto usuarioDto;
     Usuario usuario;
     Usuario usuarioToDelete;
     Usuario usuarioToCreate;
@@ -34,6 +35,7 @@ public class UsuarioControllerTestIT extends CrudControllerTestIT {
     void setup() {
         list = usuarioService.findAll();
         usuario = list.get(0);
+        usuarioDto = MapperUtil.convertToDto(usuario, UsuarioDto.class);
         usuarioToCreate = Usuario.builder().login("login").nome("nome").email("email@email.com").build();
     }
 
@@ -54,12 +56,12 @@ public class UsuarioControllerTestIT extends CrudControllerTestIT {
 
     @Override
     public String getJsonFromDto() {
-        return MapperUtil.convertToJson(usuario.toDto());
+        return MapperUtil.convertToJson(usuarioDto);
     }
 
     @Override
     public void checkCreatedJson(String json) {
-        UsuarioDto expected = usuarioToCreate.toDto();
+        UsuarioDto expected = MapperUtil.convertToDto(usuarioToCreate, UsuarioDto.class);
         UsuarioDto returned = MapperUtil.convertFromJson(json, UsuarioDto.class);
         assertNotNull(returned.getId());
         assertEquals(expected.getLogin(), returned.getLogin());

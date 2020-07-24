@@ -26,6 +26,7 @@ public class SetorControllerTestIT extends CrudControllerTestIT {
     SetorServiceImpl setorService;
 
     List<Setor> list;
+    SetorDto setorDto;
     Setor setor;
     Setor setorToDelete;
     Setor setorToCreate;
@@ -35,6 +36,7 @@ public class SetorControllerTestIT extends CrudControllerTestIT {
         list = setorService.findAll();
         setor = list.get(0);
         setorToCreate = Setor.builder().codigo("codigo").nome("nome").build();
+        setorDto = MapperUtil.convertToDto(setor, SetorDto.class);
     }
 
     @Override
@@ -54,12 +56,12 @@ public class SetorControllerTestIT extends CrudControllerTestIT {
 
     @Override
     public String getJsonFromDto() {
-        return MapperUtil.convertToJson(setor.toDto());
+        return MapperUtil.convertToJson(setorDto);
     }
 
     @Override
     public void checkCreatedJson(String json) {
-        SetorDto expected = setorToCreate.toDto();
+        SetorDto expected = MapperUtil.convertToDto(setorToCreate, SetorDto.class);
         SetorDto returned = MapperUtil.convertFromJson(json, SetorDto.class);
         assertNotNull(returned.getId());
         assertEquals(expected.getCodigo(), returned.getCodigo());

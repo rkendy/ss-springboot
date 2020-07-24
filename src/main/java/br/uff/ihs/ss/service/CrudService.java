@@ -33,7 +33,7 @@ public abstract class CrudService<MODEL> {
         return result;
     }
 
-    public List findByFilter(MODEL filter) {
+    public List<MODEL> findByFilter(MODEL filter) {
         return null;
     }
 

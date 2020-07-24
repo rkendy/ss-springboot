@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "setor")
-public class Setor implements Serializable, CrudModel<SetorDto> {
+public class Setor implements Serializable {
 
     private static final long serialVersionUID = 6523249791587614649L;
 
@@ -60,10 +60,5 @@ public class Setor implements Serializable, CrudModel<SetorDto> {
 
     // @ManyToMany(mappedBy = "setores")
     // List<Usuario> usuarios;
-
-    @Override
-    public SetorDto toDto() {
-        return MapperUtil.convertToDto(this, SetorDto.class);
-    }
 
 }

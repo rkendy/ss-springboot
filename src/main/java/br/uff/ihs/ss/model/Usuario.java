@@ -18,8 +18,6 @@ import javax.persistence.OrderBy;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
-import br.uff.ihs.ss.dto.UsuarioDto;
-import br.uff.ihs.ss.util.MapperUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,7 +29,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "usuario")
-public class Usuario implements Serializable, CrudModel<UsuarioDto> {
+public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,11 +67,6 @@ public class Usuario implements Serializable, CrudModel<UsuarioDto> {
             this.lotacao = "01";
         if (this.ativo == null)
             this.ativo = true;
-    }
-
-    @Override
-    public UsuarioDto toDto() {
-        return MapperUtil.convertToDto(this, UsuarioDto.class);
     }
 
     // @JsonIgnore
