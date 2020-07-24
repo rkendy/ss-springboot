@@ -2,16 +2,16 @@ package br.uff.ihs.ss.service;
 
 import java.util.List;
 
-public interface CrudService<T> {
-    List<T> findAll();
+public interface CrudService<MODEL> {
+    List<MODEL> findAll();
 
-    T findById(Long id);
+    MODEL findById(Long id);
 
-    List<T> findByFilter(T filter);
+    List<MODEL> findByFilter(MODEL filter);
 
-    T create(T T);
+    MODEL create(MODEL model);
 
-    T update(Long id, T bean);
+    MODEL update(Long id, MODEL model);
 
     void delete(Long id);
 }

@@ -1,5 +1,5 @@
 package br.uff.ihs.ss.dto;
 
-public interface CrudDto<M> {
-    public M toModel();
+public interface CrudDto<MODEL> {
+    public MODEL toModel();
 }

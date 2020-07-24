@@ -31,22 +31,22 @@ import br.uff.ihs.ss.service.CrudService;
 import br.uff.ihs.ss.util.MapperUtil;
 
 @ExtendWith(MockitoExtension.class)
-public abstract class CrudControllerTest<M extends CrudModel<D>, D extends CrudDto<M>> {
+public abstract class CrudControllerTest<MODEL extends CrudModel<DTO>, DTO extends CrudDto<MODEL>> {
 
     @Mock
-    private CrudService<M> service;
+    private CrudService<MODEL> service;
 
-    private BaseCrudController<M, D> controller;
+    private BaseCrudController<MODEL, DTO> controller;
 
     private MockMvc mockMvc;
 
     public abstract String getEndPoint();
 
-    public abstract BaseCrudController<M, D> getController();
+    public abstract BaseCrudController<MODEL, DTO> getController();
 
-    public abstract List<M> createList();
+    public abstract List<MODEL> createList();
 
-    public abstract M createOne();
+    public abstract MODEL createOne();
 
     @BeforeEach
     void setup() {
@@ -58,7 +58,7 @@ public abstract class CrudControllerTest<M extends CrudModel<D>, D extends CrudD
 
     @Test
     void givenList_whenFindAll_thenSuccess() throws Exception {
-        List<M> list = createList();
+        List<MODEL> list = createList();
 
         when(service.findAll()).thenReturn(list);
 
@@ -69,7 +69,7 @@ public abstract class CrudControllerTest<M extends CrudModel<D>, D extends CrudD
 
     @Test
     void givenValidId_whenFindById_thenSuccess() throws Exception {
-        M model = createOne();
+        MODEL model = createOne();
 
         when(service.findById(1L)).thenReturn(model);
 
@@ -87,7 +87,7 @@ public abstract class CrudControllerTest<M extends CrudModel<D>, D extends CrudD
 
     @Test
     void givenModel_whenCreate_thenSuccess() throws Exception {
-        M created = createOne();
+        MODEL created = createOne();
 
         when(service.create(any())).thenReturn(created);
 
@@ -100,7 +100,7 @@ public abstract class CrudControllerTest<M extends CrudModel<D>, D extends CrudD
 
     @Test
     void givenModel_whenUpdate_thenSuccess() throws Exception {
-        M updated = createOne();
+        MODEL updated = createOne();
 
         when(service.update(anyLong(), any())).thenReturn(updated);
 
