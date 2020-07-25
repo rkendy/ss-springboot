@@ -17,7 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-public abstract class RepositoryTest<T extends CrudRepository<E, Long>, E> {
+public abstract class CrudRepositoryTest<T extends CrudRepository<E, Long>, E> {
     @Autowired
     T repository;
 

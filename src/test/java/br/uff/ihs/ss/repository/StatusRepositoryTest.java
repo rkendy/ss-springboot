@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import br.uff.ihs.ss.model.Status;
 
-public class StatusRepositoryTest extends RepositoryTest<StatusRepository, Status> {
+public class StatusRepositoryTest extends CrudRepositoryTest<StatusRepository, Status> {
 
     @Test
     public void givenNovoStatus_whenInsert_thenSuccess() {

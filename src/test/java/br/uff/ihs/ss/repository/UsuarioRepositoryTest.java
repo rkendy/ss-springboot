@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import br.uff.ihs.ss.model.Usuario;
 
-public class UsuarioRepositoryTest extends RepositoryTest<UsuarioRepository, Usuario> {
+public class UsuarioRepositoryTest extends CrudRepositoryTest<UsuarioRepository, Usuario> {
 
     @Test
     public void givenNovoUsuario_whenInsert_thenSuccess() {

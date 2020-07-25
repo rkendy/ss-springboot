@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import br.uff.ihs.ss.model.Setor;
 
-public class SetorRepositoryTest extends RepositoryTest<SetorRepository, Setor> {
+public class SetorRepositoryTest extends CrudRepositoryTest<SetorRepository, Setor> {
 
     @Test
     public void givenNovoSetor_whenInsert_thenSuccess() {
