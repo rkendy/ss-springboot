@@ -14,6 +14,8 @@ public class UsuarioControllerTest extends CrudControllerTest<Usuario, UsuarioDt
     @InjectMocks
     UsuarioController usuarioController;
 
+    private TestHelper<Usuario> helper = new UsuarioTestHelper();
+
     @Override
     public String getEndPoint() {
         return UsuarioController.ENDPOINT;
@@ -26,7 +28,7 @@ public class UsuarioControllerTest extends CrudControllerTest<Usuario, UsuarioDt
 
     @Override
     public TestHelper<Usuario> getTestHelperImpl() {
-        return new UsuarioTestHelper();
+        return helper;
     }
 
 }

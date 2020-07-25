@@ -14,6 +14,8 @@ public class SetorControllerTest extends CrudControllerTest<Setor, SetorDto> {
     @InjectMocks
     SetorController setorController;
 
+    private TestHelper<Setor> helper = new SetorTestHelper();
+
     @Override
     public String getEndPoint() {
         return SetorController.ENDPOINT;
@@ -26,7 +28,7 @@ public class SetorControllerTest extends CrudControllerTest<Setor, SetorDto> {
 
     @Override
     public TestHelper<Setor> getTestHelperImpl() {
-        return new SetorTestHelper();
+        return helper;
     }
 
 }
