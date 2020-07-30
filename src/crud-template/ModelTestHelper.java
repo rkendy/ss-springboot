@@ -13,7 +13,7 @@ public class $Model$TestHelper implements TestHelper<$Model$> {
 
     @Override
     public $Model$ createOne() {
-        return $Model$.builder().codigo("codigox").nome("nomex").build();
+        return $Model$.builder().build();
     }
 
     @Override
@@ -30,8 +30,7 @@ public class $Model$TestHelper implements TestHelper<$Model$> {
     @Override
     public List<$Model$> createList() {
         return List.of( //
-                $Model$.builder().codigo($Model$.Codigo.ALMOXARIFADO.name()).nome("Almoxarifado").build(),
-                $Model$.builder().codigo($Model$.Codigo.INFORMATICA.name()).nome("Informática").build());
+                $Model$.builder().build(), $Model$.builder().build());
     }
 
 }

@@ -20,11 +20,11 @@ public class $Model$ControllerTestIT extends CrudControllerTestIT<$Model$> {
         $Model$Dto expected = MapperUtil.convertToDto(model, $Model$Dto.class);
         $Model$Dto returned = MapperUtil.convertFromJson(json, $Model$Dto.class);
         assertNotNull(returned.getId());
-        assertEquals(expected.getCodigo(), returned.getCodigo());
-        assertEquals(expected.getNome(), returned.getNome());
-        assertEquals(expected.getEmail(), returned.getEmail());
-        assertEquals("01", returned.getLotacao());
-        assertTrue(returned.getAtivo());
+        // assertEquals(expected.getCodigo(), returned.getCodigo());
+        // assertEquals(expected.getNome(), returned.getNome());
+        // assertEquals(expected.getEmail(), returned.getEmail());
+        // assertEquals("01", returned.getLotacao());
+        // assertTrue(returned.getAtivo());
     }
 
 }

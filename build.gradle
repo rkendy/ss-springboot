@@ -50,26 +50,36 @@ jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
 }
 
+
+// Generate classes for Crud for 'ModelName' entity.
+// Usage: gradle generator -DModelName
 task generator() {
 
-// gradle generator -Dxxx=Bla
-	doLast {
-		println System.getProperty("xxx")
+	ext.generateFile = { filename, destination -> 
+		println "\tGenerating $filename at $destination ..."
+		copy {
+			from './src/crud-template/' + filename
+			into destination
+			rename 'Model(.*)', modelName + '$1'
+			filter { String line -> 
+				line.replaceAll('\\$Model\\$', modelName)
+					.replaceAll('\\$model\\$', modelName.toLowerCase())
+			}
+		}
 	}
-	// def inFiles = fileTree('examples').matching {
-	// 	include "*.txt"
-	// } 
-	// def template = file("src/templates/my.template") 
-	// inputs.files inFiles
-	// inputs.file template
-	// outputs.dir "$buildDir/fooDir" 
-	// doLast {
-	// 	inFiles.files.each { inFile ->
-	// 		copy { 
-	// 			from template 
-	// 			filter ... 
-	// 			into "$buildDir/fooDir/$inFile.name"
-	// 		} 
-	// 	} 
-	// } 
+
+	ext.modelName = System.getProperty("model")
+	doLast {
+		println "Generating Crud files for model $modelName:"
+		generateFile('Model.java', './src/main/java/br/uff/ihs/ss/model')
+		generateFile('ModelController.java', './src/main/java/br/uff/ihs/ss/controller')
+		generateFile('ModelControllerTest.java', './src/test/java/br/uff/ihs/ss/controller')
+		generateFile('ModelControllerTestIT.java', './src/test/java/br/uff/ihs/ss/controller')
+		generateFile('ModelDto.java', './src/main/java/br/uff/ihs/ss/dto')
+		generateFile('ModelRepository.java', './src/main/java/br/uff/ihs/ss/repository')
+		generateFile('ModelRepositoryTest.java', './src/test/java/br/uff/ihs/ss/repository')
+		generateFile('ModelServiceImpl.java', './src/main/java/br/uff/ihs/ss/service/impl')
+		generateFile('ModelServiceTest.java', './src/test/java/br/uff/ihs/ss/service')
+		generateFile('ModelTestHelper.java', './src/test/java/br/uff/ihs/ss/helper')
+	}
 }

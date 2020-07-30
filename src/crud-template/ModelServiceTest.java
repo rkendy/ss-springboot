@@ -28,8 +28,8 @@ public class $Model$ServiceTest extends CrudServiceTest<$Model$> {
 
     @Override
     protected void assertAttributes($Model$ expected, $Model$ actual) {
-        assertEquals(expected.getCodigo(), actual.getCodigo());
-        assertEquals(expected.getNome(), actual.getNome());
+        // assertEquals(expected.getCodigo(), actual.getCodigo());
+        // assertEquals(expected.getNome(), actual.getNome());
     }
 
 }
