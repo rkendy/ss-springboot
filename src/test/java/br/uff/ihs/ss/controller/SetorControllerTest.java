@@ -1,7 +1,5 @@
 package br.uff.ihs.ss.controller;
 
-import java.util.List;
-
 import org.mockito.InjectMocks;
 
 import br.uff.ihs.ss.dto.SetorDto;

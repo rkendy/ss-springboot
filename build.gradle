@@ -49,3 +49,27 @@ test {
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
 }
+
+task generator() {
+
+// gradle generator -Dxxx=Bla
+	doLast {
+		println System.getProperty("xxx")
+	}
+	// def inFiles = fileTree('examples').matching {
+	// 	include "*.txt"
+	// } 
+	// def template = file("src/templates/my.template") 
+	// inputs.files inFiles
+	// inputs.file template
+	// outputs.dir "$buildDir/fooDir" 
+	// doLast {
+	// 	inFiles.files.each { inFile ->
+	// 		copy { 
+	// 			from template 
+	// 			filter ... 
+	// 			into "$buildDir/fooDir/$inFile.name"
+	// 		} 
+	// 	} 
+	// } 
+}
