@@ -4,28 +4,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import br.uff.ihs.ss.helper.VeiculoTestHelper;
 import br.uff.ihs.ss.model.Veiculo;
 
 public class VeiculoRepositoryTest extends CrudRepositoryTest<VeiculoRepository, Veiculo> {
 
+    VeiculoTestHelper helper = new VeiculoTestHelper();
+
     @Test
     public void givenNewVeiculo_whenInsert_thenSuccess() {
-        // final Veiculo s = Veiculo.builder() //
-        // .codigo(Veiculo.Codigo.ALMOXARIFADO.name()) //
-        // .nome("Almoxarifado") //
-        // .ativo(true) //
-        // .email("email@email.com").lotacao("01").build();
 
-        // final Veiculo novo = repository.save(s);
+        final Veiculo s = helper.createOne();
 
-        // assertNotNull(novo);
-        // assertNotNull(novo.getId());
-        // assertEquals(Veiculo.Codigo.ALMOXARIFADO.name(), novo.getCodigo());
-        // assertEquals("Almoxarifado", novo.getNome());
-        // assertEquals(true, novo.getAtivo());
-        // assertEquals("email@email.com", novo.getEmail());
-        // assertEquals("01", novo.getLotacao());
+        final Veiculo novo = repository.save(s);
+
+        assertNotNull(novo);
+        assertNotNull(novo.getId());
+        assertEquals(s.getModelo(), novo.getModelo());
+        assertEquals(s.getPlaca(), novo.getPlaca());
+        assertEquals(s.getCapacidade(), novo.getCapacidade());
+        assertEquals(true, novo.getAtivo());
+        assertEquals("01", novo.getLotacao());
     }
 
 }

@@ -20,11 +20,11 @@ public class VeiculoControllerTestIT extends CrudControllerTestIT<Veiculo> {
         VeiculoDto expected = MapperUtil.convertToDto(model, VeiculoDto.class);
         VeiculoDto returned = MapperUtil.convertFromJson(json, VeiculoDto.class);
         assertNotNull(returned.getId());
-        // assertEquals(expected.getCodigo(), returned.getCodigo());
-        // assertEquals(expected.getNome(), returned.getNome());
-        // assertEquals(expected.getEmail(), returned.getEmail());
-        // assertEquals("01", returned.getLotacao());
-        // assertTrue(returned.getAtivo());
+        assertEquals(expected.getPlaca(), returned.getPlaca());
+        assertEquals(expected.getModelo(), returned.getModelo());
+        assertEquals(expected.getCapacidade(), returned.getCapacidade());
+        assertEquals("01", returned.getLotacao());
+        assertTrue(returned.getAtivo());
     }
 
 }

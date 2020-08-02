@@ -8,7 +8,13 @@ import lombok.Data;
 public class VeiculoDto {
     private Long id;
 
-    // @NotBlank(message = "Name is mandatory")
-    // private String nome;
+    @NotBlank(message = "Placa is mandatory")
+    private String placa;
+    @NotBlank(message = "Modelo is mandatory")
+    private String modelo;
+    private Integer capacidade;
+    private String lotacao;
+    private Boolean ativo;
+    private Integer quilometragem;
 
 }

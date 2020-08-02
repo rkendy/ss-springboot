@@ -13,7 +13,7 @@ public class VeiculoTestHelper implements TestHelper<Veiculo> {
 
     @Override
     public Veiculo createOne() {
-        return Veiculo.builder().build();
+        return Veiculo.builder().placa("AAA-1234").modelo("Modelo A").capacidade(10).build();
     }
 
     @Override
@@ -30,7 +30,8 @@ public class VeiculoTestHelper implements TestHelper<Veiculo> {
     @Override
     public List<Veiculo> createList() {
         return List.of( //
-                Veiculo.builder().build(), Veiculo.builder().build());
+                Veiculo.builder().placa("AAA-1234").modelo("Modelo A").capacidade(10).build(),
+                Veiculo.builder().placa("CCC-5478").modelo("Modelo B").capacidade(20).build());
     }
 
 }

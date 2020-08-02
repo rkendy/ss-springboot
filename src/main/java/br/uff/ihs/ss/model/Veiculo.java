@@ -30,4 +30,18 @@ public class Veiculo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String placa;
+    private String modelo;
+    private Integer capacidade;
+    private String lotacao;
+    private Boolean ativo;
+    private Integer quilometragem;
+
+    @PrePersist
+    void preInsert() {
+        if (this.lotacao == null)
+            this.lotacao = "01";
+        if (this.ativo == null)
+            this.ativo = true;
+    }
 }

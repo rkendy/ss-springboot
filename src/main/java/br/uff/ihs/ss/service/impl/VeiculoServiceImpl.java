@@ -15,11 +15,14 @@ public class VeiculoServiceImpl extends CrudService<Veiculo> {
 
     @Override
     protected void updateAttributes(Veiculo toUpdate, Veiculo updated) {
-        // toUpdate.setAtivo(updated.getAtivo());
-        // toUpdate.setCodigo(updated.getCodigo());
-        // toUpdate.setEmail(updated.getEmail());
-        // toUpdate.setLotacao(updated.getLotacao());
-        // toUpdate.setNome(updated.getNome());
+
+        toUpdate.setPlaca(updated.getPlaca());
+        toUpdate.setModelo(updated.getModelo());
+        toUpdate.setCapacidade(updated.getCapacidade());
+        toUpdate.setLotacao(updated.getLotacao());
+        toUpdate.setAtivo(updated.getAtivo());
+        toUpdate.setQuilometragem(updated.getQuilometragem());
+
     }
 
 }

@@ -28,8 +28,9 @@ public class VeiculoServiceTest extends CrudServiceTest<Veiculo> {
 
     @Override
     protected void assertAttributes(Veiculo expected, Veiculo actual) {
-        // assertEquals(expected.getCodigo(), actual.getCodigo());
-        // assertEquals(expected.getNome(), actual.getNome());
+        assertEquals(expected.getPlaca(), actual.getPlaca());
+        assertEquals(expected.getModelo(), actual.getModelo());
+        assertEquals(expected.getCapacidade(), actual.getCapacidade());
     }
 
 }
