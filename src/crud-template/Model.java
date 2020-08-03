@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
-import br.uff.ihs.ss.dto.$Model$Dto;
 import br.uff.ihs.ss.util.MapperUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -12,13 +12,13 @@ import br.uff.ihs.ss.service.impl.$Model$ServiceImpl;
 public class $Model$ServiceTest extends CrudServiceTest<$Model$> {
 
     @InjectMocks
-    private $Model$ServiceImpl $Model$Service;
+    private $Model$ServiceImpl $model$Service;
 
     private TestHelper<$Model$> helper = new $Model$TestHelper();
 
     @Override
     protected CrudService<$Model$> getServiceImpl() {
-        return $Model$Service;
+        return $model$Service;
     }
 
     @Override

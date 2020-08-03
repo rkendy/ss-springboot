@@ -5,27 +5,24 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
+import br.uff.ihs.ss.helper.SetorTestHelper;
 import br.uff.ihs.ss.model.Setor;
 
 public class SetorRepositoryTest extends CrudRepositoryTest<SetorRepository, Setor> {
 
+    private SetorTestHelper helper = new SetorTestHelper();
+
     @Test
-    public void givenNovoSetor_whenInsert_thenSuccess() {
-        final Setor s = Setor.builder() //
-                .codigo(Setor.Codigo.ALMOXARIFADO.name()) //
-                .nome("Almoxarifado") //
-                .ativo(true) //
-                .email("email@email.com").lotacao("01").build();
+    public void givenNewSetor_whenInsert_thenSuccess() {
+        final Setor e = helper.createOne();
 
-        final Setor novo = repository.save(s);
+        final Setor created = repository.save(e);
 
-        assertNotNull(novo);
-        assertNotNull(novo.getId());
-        assertEquals(Setor.Codigo.ALMOXARIFADO.name(), novo.getCodigo());
-        assertEquals("Almoxarifado", novo.getNome());
-        assertEquals(true, novo.getAtivo());
-        assertEquals("email@email.com", novo.getEmail());
-        assertEquals("01", novo.getLotacao());
+        assertNotNull(created);
+        assertNotNull(created.getId());
+        // include other asserts:
+        assertEquals(e.getNome(), created.getNome());
+        assertEquals(e.getCodigo(), created.getCodigo());
     }
 
 }

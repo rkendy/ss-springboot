@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
-import br.uff.ihs.ss.dto.SetorDto;
-import br.uff.ihs.ss.util.MapperUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -47,18 +45,5 @@ public class Setor implements Serializable {
         if (this.ativo == null)
             this.ativo = true;
     }
-
-    // @ManyToMany
-    // @JoinTable(
-    // name = "setor_status",
-    // joinColumns = @JoinColumn(name = "setor_id"),
-    // inverseJoinColumns = @JoinColumn(name = "status_id")
-    // )
-    // @JsonIgnore
-    // @JsonManagedReference
-    // List<Status> status;
-
-    // @ManyToMany(mappedBy = "setores")
-    // List<Usuario> usuarios;
 
 }

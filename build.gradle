@@ -52,8 +52,8 @@ jacocoTestReport {
 
 
 // Generate classes for Crud for 'ModelName' entity.
-// Usage: gradle generator -DModelName
-task generator() {
+// Usage: gradle generate -DModelName
+task generate() {
 
 	ext.generateFile = { filename, destination -> 
 		println "\tGenerating $filename at $destination ..."

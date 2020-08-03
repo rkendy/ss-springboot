@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
+import br.uff.ihs.ss.helper.$Model$TestHelper;
 import br.uff.ihs.ss.model.$Model$;
 
 public class $Model$RepositoryTest extends CrudRepositoryTest<$Model$Repository, $Model$> {

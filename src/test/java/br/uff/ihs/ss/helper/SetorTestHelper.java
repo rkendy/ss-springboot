@@ -7,13 +7,18 @@ import org.springframework.stereotype.Component;
 import br.uff.ihs.ss.dto.SetorDto;
 import br.uff.ihs.ss.model.Setor;
 import br.uff.ihs.ss.util.MapperUtil;
+import br.uff.ihs.ss.helper.SetorTestHelper;
 
 @Component
 public class SetorTestHelper implements TestHelper<Setor> {
 
+    private Setor createOne(String nome, String codigo) {
+        return Setor.builder().nome(nome).codigo(codigo).build();
+    }
+
     @Override
     public Setor createOne() {
-        return Setor.builder().codigo("codigox").nome("nomex").build();
+        return createOne("Nome Setor", "Codigo Setor");
     }
 
     @Override
@@ -30,8 +35,8 @@ public class SetorTestHelper implements TestHelper<Setor> {
     @Override
     public List<Setor> createList() {
         return List.of( //
-                Setor.builder().codigo(Setor.Codigo.ALMOXARIFADO.name()).nome("Almoxarifado").build(),
-                Setor.builder().codigo(Setor.Codigo.INFORMATICA.name()).nome("Informática").build());
+                createOne("Nome1", "Codigo1"), //
+                createOne("Nome2", "Codigo2"));
     }
 
 }
