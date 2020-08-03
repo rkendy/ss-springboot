@@ -9,23 +9,18 @@ import br.uff.ihs.ss.model.$Model$;
 
 public class $Model$RepositoryTest extends CrudRepositoryTest<$Model$Repository, $Model$> {
 
+    private $Model$TestHelper helper = new $Model$TestHelper();
+
     @Test
     public void givenNew$Model$_whenInsert_thenSuccess() {
-        // final $Model$ s = $Model$.builder() //
-        // .codigo($Model$.Codigo.ALMOXARIFADO.name()) //
-        // .nome("Almoxarifado") //
-        // .ativo(true) //
-        // .email("email@email.com").lotacao("01").build();
+        final $Model$ e = helper.createOne();
 
-        // final $Model$ novo = repository.save(s);
+        final $Model$ created = repository.save(e);
 
-        // assertNotNull(novo);
-        // assertNotNull(novo.getId());
-        // assertEquals($Model$.Codigo.ALMOXARIFADO.name(), novo.getCodigo());
-        // assertEquals("Almoxarifado", novo.getNome());
-        // assertEquals(true, novo.getAtivo());
-        // assertEquals("email@email.com", novo.getEmail());
-        // assertEquals("01", novo.getLotacao());
+        assertNotNull(created);
+        assertNotNull(created.getId());
+        // include other asserts:
+        // assertEquals(e.get(), created.get());
     }
 
 }

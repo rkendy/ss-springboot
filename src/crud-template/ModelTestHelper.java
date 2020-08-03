@@ -7,13 +7,18 @@ import org.springframework.stereotype.Component;
 import br.uff.ihs.ss.dto.$Model$Dto;
 import br.uff.ihs.ss.model.$Model$;
 import br.uff.ihs.ss.util.MapperUtil;
+import br.uff.ihs.ss.helper.$Model$TestHelper;
 
 @Component
 public class $Model$TestHelper implements TestHelper<$Model$> {
 
+    private $Model$ createOne(String a, String b) {
+        return $Model$.builder().attributeA(a).atributeB(b).build();
+    }
+
     @Override
     public $Model$ createOne() {
-        return $Model$.builder().build();
+        return createOne("aaa", "bbb");
     }
 
     @Override
@@ -30,7 +35,8 @@ public class $Model$TestHelper implements TestHelper<$Model$> {
     @Override
     public List<$Model$> createList() {
         return List.of( //
-                $Model$.builder().build(), $Model$.builder().build());
+                createOne("aaa1", "bbb1"), //
+                createOne("aaa2", "bbb2"));
     }
 
 }

@@ -26,6 +26,13 @@ public class $Model$ implements Serializable {
 
     private static final long serialVersionUID = 6523249791587614649L;
 
+    @PrePersist
+    void preInsert() {
+        // Include default values:
+        // if (this.ativo == null)
+        // this.ativo = true;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
