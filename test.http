@@ -23,3 +23,23 @@ content-type: application/json
 	"nome": "Nome Setor",
 	"lotacao": "00"
 }
+
+
+
+
+### All Sol:
+http://localhost:8080/api/solicitacao/
+
+
+### Sol id 1
+http://localhost:8080/api/solicitacao/1
+
+### Create Solicitacao:
+POST http://localhost:8080/api/solicitacao HTTP/1.1
+content-type: application/json
+
+{
+	"titulo": "Titulo ABC",
+	"descricao": "Descricao ABC"
+}
+
