@@ -15,7 +15,7 @@ insert into usuario(login,nome,email) values ('login03', 'Nome 03', 'email03@ema
 -- insert into veiculo(placa,modelo,capacidade,lotacao,ativo,quilometragem) values ('XYZ-9999', 'Variant', 20, '01', true, 2000);
 -- insert into veiculo(placa,modelo,capacidade,lotacao,ativo,quilometragem) values ('IJK-0011', 'Fusca 69', 15, '01', true, 3000);
 
--- insert into solicitacao(titulo, descricao) values ('Titulo 01', 'Descricao 01');
--- insert into solicitacao(titulo, descricao) values ('Titulo 02', 'Descricao 02');
--- insert into solicitacao(titulo, descricao) values ('Titulo 03', 'Descricao 03');
+insert into solicitacao(titulo, descricao) values ('Titulo 01', 'Descricao 01');
+insert into solicitacao(titulo, descricao) values ('Titulo 02', 'Descricao 02');
+insert into solicitacao(titulo, descricao) values ('Titulo 03', 'Descricao 03');
 select * from setor;
