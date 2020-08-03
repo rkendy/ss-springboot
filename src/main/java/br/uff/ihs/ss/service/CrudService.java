@@ -3,7 +3,6 @@ package br.uff.ihs.ss.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 
 import br.uff.ihs.ss.exception.NotFoundException;
@@ -11,7 +10,6 @@ import br.uff.ihs.ss.service.CrudService;
 
 public abstract class CrudService<MODEL> {
 
-    @Autowired
     protected CrudRepository<MODEL, Long> repository;
 
     abstract protected Class<?> getModelClass();

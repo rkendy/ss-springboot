@@ -15,15 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import br.uff.ihs.ss.service.CrudService;
+import br.uff.ihs.ss.service.ICrudService;
 import br.uff.ihs.ss.util.MapperUtil;
 
 public abstract class BaseCrudController<MODEL, DTO> {
 
     final public String ENDPOINT_ID = "/{id}";
 
-    @Autowired
-    private CrudService<MODEL> service;
+    protected ICrudService<MODEL> service;
 
     abstract protected Class<MODEL> getModelClass();
 
