@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import br.uff.ihs.ss.helper.TestHelper;
-import br.uff.ihs.ss.service.CrudService;
+import br.uff.ihs.ss.service.BaseCrudService;
 import br.uff.ihs.ss.util.MapperUtil;
 
 @ExtendWith(SpringExtension.class)
@@ -32,7 +32,7 @@ public abstract class CrudControllerTestIT<MODEL> {
     int port;
 
     @Autowired
-    CrudService<MODEL> service;
+    BaseCrudService<MODEL> service;
 
     @Autowired
     TestHelper<MODEL> helper;

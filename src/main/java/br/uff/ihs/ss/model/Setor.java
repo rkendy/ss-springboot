@@ -24,10 +24,6 @@ public class Setor implements Serializable {
 
     private static final long serialVersionUID = 6523249791587614649L;
 
-    public static enum Codigo {
-        INFORMATICA, TRANSPORTE, ALMOXARIFADO, PATRIMONIO
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,10 +36,9 @@ public class Setor implements Serializable {
 
     @PrePersist
     void preInsert() {
-        if (this.lotacao == null)
-            this.lotacao = "01";
-        if (this.ativo == null)
-            this.ativo = true;
+        // Include default values:
+        // if (this.ativo == null)
+        // this.ativo = true;
     }
 
 }

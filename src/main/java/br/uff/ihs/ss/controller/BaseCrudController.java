@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,14 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import br.uff.ihs.ss.service.ICrudService;
+import br.uff.ihs.ss.service.CrudService;
 import br.uff.ihs.ss.util.MapperUtil;
 
 public abstract class BaseCrudController<MODEL, DTO> {
 
     final public String ENDPOINT_ID = "/{id}";
 
-    protected ICrudService<MODEL> service;
+    protected CrudService<MODEL> service;
 
     abstract protected Class<MODEL> getModelClass();
 

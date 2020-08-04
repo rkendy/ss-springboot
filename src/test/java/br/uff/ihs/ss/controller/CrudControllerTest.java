@@ -27,14 +27,13 @@ import br.uff.ihs.ss.controller.advice.NotFoundAdvice;
 import br.uff.ihs.ss.exception.NotFoundException;
 import br.uff.ihs.ss.helper.TestHelper;
 import br.uff.ihs.ss.service.CrudService;
-import br.uff.ihs.ss.service.ICrudService;
 import br.uff.ihs.ss.util.MapperUtil;
 
 @ExtendWith(MockitoExtension.class)
 public abstract class CrudControllerTest<MODEL, DTO> {
 
     @Mock
-    private ICrudService<MODEL> service;
+    private CrudService<MODEL> service;
 
     private TestHelper<MODEL> helper;
 

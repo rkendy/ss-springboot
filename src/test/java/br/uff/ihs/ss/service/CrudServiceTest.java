@@ -17,7 +17,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.repository.CrudRepository;
 
@@ -26,22 +25,23 @@ import br.uff.ihs.ss.helper.TestHelper;
 
 @ExtendWith(MockitoExtension.class)
 public abstract class CrudServiceTest<MODEL> {
-    @Mock
+
     private CrudRepository<MODEL, Long> repository;
-
     private TestHelper<MODEL> helper;
-
     private CrudService<MODEL> service;
     private MODEL expected;
 
-    abstract protected TestHelper<MODEL> getTestHelperImpl();
-
     abstract protected CrudService<MODEL> getServiceImpl();
+
+    abstract protected CrudRepository<MODEL, Long> getRepository();
 
     abstract protected void assertAttributes(MODEL expected, MODEL actual);
 
+    abstract protected TestHelper<MODEL> getTestHelperImpl();
+
     @BeforeEach
     void setup() {
+        repository = getRepository();
         helper = getTestHelperImpl();
         service = getServiceImpl();
         expected = helper.createOne();

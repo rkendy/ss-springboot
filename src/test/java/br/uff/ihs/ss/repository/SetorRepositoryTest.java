@@ -21,8 +21,7 @@ public class SetorRepositoryTest extends CrudRepositoryTest<SetorRepository, Set
         assertNotNull(created);
         assertNotNull(created.getId());
         // include other asserts:
-        assertEquals(e.getNome(), created.getNome());
-        assertEquals(e.getCodigo(), created.getCodigo());
+        // assertEquals(e.get(), created.get());
     }
 
 }

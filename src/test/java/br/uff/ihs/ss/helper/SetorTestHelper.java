@@ -12,13 +12,13 @@ import br.uff.ihs.ss.helper.SetorTestHelper;
 @Component
 public class SetorTestHelper implements TestHelper<Setor> {
 
-    private Setor createOne(String nome, String codigo) {
-        return Setor.builder().nome(nome).codigo(codigo).build();
+    private Setor createOne(String a, String b) {
+        return Setor.builder().nome(a).codigo(b).build();
     }
 
     @Override
     public Setor createOne() {
-        return createOne("Nome Setor", "Codigo Setor");
+        return createOne("aaa", "bbb");
     }
 
     @Override
@@ -35,8 +35,8 @@ public class SetorTestHelper implements TestHelper<Setor> {
     @Override
     public List<Setor> createList() {
         return List.of( //
-                createOne("Nome1", "Codigo1"), //
-                createOne("Nome2", "Codigo2"));
+                createOne("aaa1", "bbb1"), //
+                createOne("aaa2", "bbb2"));
     }
 
 }
