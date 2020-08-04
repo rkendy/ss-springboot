@@ -25,6 +25,23 @@ content-type: application/json
 }
 
 
+### All usuarios:
+http://localhost:8080/api/usuario/
+
+### usuario id 1
+http://localhost:8080/api/usuario/1
+
+### Create usuario:
+POST http://localhost:8080/api/usuario HTTP/1.1
+content-type: application/json
+
+{
+	"login": "login1",
+	"nome": "Nome usuario",
+	"email": "email@email.com",
+	"lotacao": "02"
+}
+
 
 
 ### All Sol:

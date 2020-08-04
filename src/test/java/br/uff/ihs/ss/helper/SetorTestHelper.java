@@ -18,7 +18,7 @@ public class SetorTestHelper implements TestHelper<Setor> {
 
     @Override
     public Setor createOne() {
-        return createOne("aaa", "bbb");
+        return createOne("Nome Setor", "Codigo");
     }
 
     @Override
@@ -35,8 +35,8 @@ public class SetorTestHelper implements TestHelper<Setor> {
     @Override
     public List<Setor> createList() {
         return List.of( //
-                createOne("aaa1", "bbb1"), //
-                createOne("aaa2", "bbb2"));
+                createOne("Nome 1", "Codigo1"), //
+                createOne("Nome 2", "Codigo2"));
     }
 
 }
