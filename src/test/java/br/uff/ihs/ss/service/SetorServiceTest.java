@@ -39,8 +39,8 @@ public class SetorServiceTest extends CrudServiceTest<Setor> {
 
     @Override
     protected void assertAttributes(Setor expected, Setor actual) {
-        // assertEquals(expected.getCodigo(), actual.getCodigo());
-        // assertEquals(expected.getNome(), actual.getNome());
+        assertEquals(expected.getCodigo(), actual.getCodigo());
+        assertEquals(expected.getNome(), actual.getNome());
     }
 
 }

@@ -37,8 +37,10 @@ public class Setor implements Serializable {
     @PrePersist
     void preInsert() {
         // Include default values:
-        // if (this.ativo == null)
-        // this.ativo = true;
+        if (this.ativo == null)
+            this.ativo = true;
+        if (this.lotacao == null)
+            this.lotacao = "01";
     }
 
 }

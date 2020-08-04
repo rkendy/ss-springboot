@@ -8,13 +8,14 @@ import lombok.Data;
 public class SetorDto {
     private Long id;
 
+    @NotBlank(message = "Nome obrigatorio")
     private String nome;
+    @NotBlank(message = "Codigo obrigatorio")
     private String codigo;
     private String email;
     private String lotacao;
     private Boolean ativo;
 
-    // @NotBlank(message = "Name is mandatory")
     // private String nome;
 
 }
