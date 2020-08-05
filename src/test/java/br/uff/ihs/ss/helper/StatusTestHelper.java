@@ -18,7 +18,7 @@ public class StatusTestHelper implements TestHelper<Status> {
 
     @Override
     public Status createOne() {
-        return createOne("Nome Status", Status.Codigo.ABERTO);
+        return createOne("Nome Status", Status.Codigo.EM_ANALISE);
     }
 
     @Override

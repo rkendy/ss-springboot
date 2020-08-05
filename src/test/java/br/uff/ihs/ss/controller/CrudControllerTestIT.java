@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -31,8 +32,11 @@ public abstract class CrudControllerTestIT<MODEL> {
     @LocalServerPort
     int port;
 
+    // @Autowired
+    // BaseCrudService<MODEL> service;
+
     @Autowired
-    BaseCrudService<MODEL> service;
+    CrudRepository<MODEL, Long> repository;
 
     @Autowired
     TestHelper<MODEL> helper;
@@ -48,7 +52,8 @@ public abstract class CrudControllerTestIT<MODEL> {
 
     @Test
     public void givenValidId_whenGet_thenReturnSuccess() {
-        MODEL model = service.findAll().get(0);
+
+        MODEL model = repository.findAll().iterator().next();
 
         ResponseEntity<String> response = makeGetRequest(helper.getId(model));
 
@@ -63,10 +68,10 @@ public abstract class CrudControllerTestIT<MODEL> {
 
     @Test
     public void givenModel_whenCreate_thenSuccess() {
-        int beforeCount = service.findAll().size();
+        long beforeCount = repository.count();
         MODEL model = helper.createOne();
         ResponseEntity<String> response = makePostRequest(MapperUtil.convertToJson(model));
-        int afterCount = service.findAll().size();
+        long afterCount = repository.count();
         assertEquals(HttpStatus.CREATED.value(), response.getStatusCodeValue());
         assertEquals(beforeCount + 1, afterCount);
         checkCreatedJson(model, response.getBody());
@@ -75,7 +80,7 @@ public abstract class CrudControllerTestIT<MODEL> {
     @Test
     public void givenValidModel_whenUpdate_thenReturnSuccess() {
 
-        MODEL model = service.findAll().get(0);
+        MODEL model = repository.findAll().iterator().next();
 
         ResponseEntity<String> response = makePutRequest(helper.convertToJson(model), helper.getId(model));
 
@@ -84,12 +89,13 @@ public abstract class CrudControllerTestIT<MODEL> {
 
     @Test
     public void givenValidId_whenDelete_thenReturnSuccess() {
-        MODEL newModel = service.create(helper.createOne());
-        int countBefore = service.findAll().size();
+
+        MODEL newModel = repository.save(helper.createOne());
+        long countBefore = repository.count();
 
         ResponseEntity<String> response = makeDeleteRequest(helper.getId(newModel));
 
-        int countAfter = service.findAll().size();
+        long countAfter = repository.count();
         assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
         assertEquals(countBefore, countAfter + 1);
     }

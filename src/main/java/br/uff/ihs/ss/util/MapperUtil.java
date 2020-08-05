@@ -30,6 +30,7 @@ public final class MapperUtil {
         try {
             result = objectMapper.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
+            result = e.getMessage();
         }
         return result;
     }
@@ -38,6 +39,7 @@ public final class MapperUtil {
         try {
             return objectMapper.readValue(json, bean);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

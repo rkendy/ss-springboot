@@ -2,11 +2,13 @@ package br.uff.ihs.ss.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -32,6 +34,15 @@ public class Solicitacao implements Serializable {
     private String titulo;
     private String descricao;
     private LocalDateTime criacao;
+
+    @OneToOne
+    private Usuario criador;
+
+    @OneToOne
+    private Setor setor;
+
+    @OneToOne
+    private Status status;
 
     @PrePersist
     void preInsert() {

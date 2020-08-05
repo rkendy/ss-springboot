@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import br.uff.ihs.ss.dto.SolicitacaoDto;
+import br.uff.ihs.ss.model.Setor;
 import br.uff.ihs.ss.model.Solicitacao;
+import br.uff.ihs.ss.model.Usuario;
 import br.uff.ihs.ss.util.MapperUtil;
 import br.uff.ihs.ss.helper.SolicitacaoTestHelper;
 
@@ -13,7 +15,9 @@ import br.uff.ihs.ss.helper.SolicitacaoTestHelper;
 public class SolicitacaoTestHelper implements TestHelper<Solicitacao> {
 
     private Solicitacao createOne(String a, String b) {
-        return Solicitacao.builder().titulo(a).descricao(b).build();
+        return Solicitacao.builder().titulo(a).descricao(b) //
+                .setor(Setor.builder().id(1L).build()) //
+                .criador(Usuario.builder().id(1L).build()).build();
     }
 
     @Override
