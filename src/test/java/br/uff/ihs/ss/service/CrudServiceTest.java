@@ -41,9 +41,9 @@ public abstract class CrudServiceTest<MODEL> {
 
     @BeforeEach
     void setup() {
+        service = getServiceImpl();
         repository = getRepository();
         helper = getTestHelperImpl();
-        service = getServiceImpl();
         expected = helper.createOne();
     }
 

@@ -20,4 +20,10 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario> implements Usua
         super.setModelClass(Usuario.class);
     }
 
+    @Override
+    protected void updateAttributes(Usuario to, Usuario from) {
+        // TODO Auto-generated method stub
+
+    }
+
 }

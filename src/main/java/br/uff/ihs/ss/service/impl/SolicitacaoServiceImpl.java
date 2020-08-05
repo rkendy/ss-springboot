@@ -40,4 +40,10 @@ public class SolicitacaoServiceImpl extends BaseCrudService<Solicitacao> impleme
         return repository.save(solicitacao);
     }
 
+    @Override
+    protected void updateAttributes(Solicitacao to, Solicitacao from) {
+        // TODO Auto-generated method stub
+
+    }
+
 }

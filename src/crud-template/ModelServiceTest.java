@@ -15,7 +15,7 @@ import br.uff.ihs.ss.service.impl.$Model$ServiceImpl;
 public class $Model$ServiceTest extends CrudServiceTest<$Model$> {
 
     @InjectMocks
-    private $Model$ServiceImpl $model$Service;
+    private $Model$ServiceImpl service;
 
     @Mock
     private $Model$Repository repository;
@@ -24,7 +24,7 @@ public class $Model$ServiceTest extends CrudServiceTest<$Model$> {
 
     @Override
     protected CrudService<$Model$> getServiceImpl() {
-        return $model$Service;
+        return service;
     }
 
     @Override

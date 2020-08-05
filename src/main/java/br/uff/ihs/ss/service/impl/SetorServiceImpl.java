@@ -20,4 +20,10 @@ public class SetorServiceImpl extends BaseCrudService<Setor> implements SetorSer
         super.setModelClass(Setor.class);
     }
 
+    @Override
+    protected void updateAttributes(Setor to, Setor from) {
+        to.setCodigo(from.getCodigo());
+        to.setNome(from.getNome());
+    }
+
 }
