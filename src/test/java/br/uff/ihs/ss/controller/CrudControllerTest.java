@@ -23,7 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import br.uff.ihs.ss.controller.advice.NotFoundAdvice;
+import br.uff.ihs.ss.controller.advice.ExceptionAdvice;
 import br.uff.ihs.ss.exception.NotFoundException;
 import br.uff.ihs.ss.helper.TestHelper;
 import br.uff.ihs.ss.service.CrudService;
@@ -51,7 +51,7 @@ public abstract class CrudControllerTest<MODEL, DTO> {
         helper = getTestHelperImpl();
         controller = getController();
         mockMvc = MockMvcBuilders.standaloneSetup(controller) //
-                .setControllerAdvice(new NotFoundAdvice()) //
+                .setControllerAdvice(new ExceptionAdvice()) //
                 .build();
     }
 

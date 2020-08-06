@@ -1,12 +1,15 @@
 package br.uff.ihs.ss.service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.repository.CrudRepository;
 
+import br.uff.ihs.ss.exception.ConflictException;
 import br.uff.ihs.ss.exception.NotFoundException;
-import br.uff.ihs.ss.service.BaseCrudService;
 
 public abstract class BaseCrudService<MODEL> {
 
@@ -24,7 +27,13 @@ public abstract class BaseCrudService<MODEL> {
     }
 
     public MODEL create(MODEL model) {
-        return repository.save(model);
+        MODEL newModel;
+        try {
+            newModel = repository.save(model);
+        } catch (DataIntegrityViolationException e) {
+            throw new ConflictException(modelClass, e.getMessage());
+        }
+        return newModel;
     }
 
     public void delete(Long id) {
@@ -49,7 +58,13 @@ public abstract class BaseCrudService<MODEL> {
     public MODEL update(Long id, MODEL model) {
         MODEL toUpdate = repository.findById(id).orElseThrow(() -> new NotFoundException(modelClass, id));
         updateAttributes(toUpdate, model);
-        return repository.save(toUpdate);
+        MODEL updated;
+        try {
+            updated = repository.save(toUpdate);
+        } catch (DataIntegrityViolationException e) {
+            throw new ConflictException(modelClass, e.getMessage());
+        }
+        return updated;
     }
 
 }

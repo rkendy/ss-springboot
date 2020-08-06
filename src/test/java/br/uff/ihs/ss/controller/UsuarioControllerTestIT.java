@@ -2,7 +2,10 @@ package br.uff.ihs.ss.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import br.uff.ihs.ss.dto.UsuarioDto;
 import br.uff.ihs.ss.model.Usuario;
@@ -25,6 +28,18 @@ public class UsuarioControllerTestIT extends CrudControllerTestIT<Usuario> {
         // assertEquals(expected.getEmail(), returned.getEmail());
         // assertEquals("01", returned.getLotacao());
         // assertTrue(returned.getAtivo());
+    }
+
+    @Test
+    public void givenExistingLogin_whenCreate_thenReturnConflict() {
+
+        Usuario usuario = repository.findAll().iterator().next();
+        Usuario novoUsuario = helper.createOne();
+        novoUsuario.setLogin(usuario.getLogin());
+
+        ResponseEntity<String> response = makePostRequest(MapperUtil.convertToJson(novoUsuario));
+
+        assertEquals(HttpStatus.CONFLICT.value(), response.getStatusCode().value());
     }
 
 }
