@@ -16,7 +16,7 @@ public abstract class BaseCrudService<MODEL> {
     private CrudRepository<MODEL, Long> repository;
     private Class<?> modelClass;
 
-    protected abstract void updateAttributes(MODEL to, MODEL from);
+    protected abstract void updateCrudAttributes(MODEL to, MODEL from);
 
     public void setRepository(CrudRepository<MODEL, Long> repository) {
         this.repository = repository;
@@ -57,7 +57,7 @@ public abstract class BaseCrudService<MODEL> {
 
     public MODEL update(Long id, MODEL model) {
         MODEL toUpdate = repository.findById(id).orElseThrow(() -> new NotFoundException(modelClass, id));
-        updateAttributes(toUpdate, model);
+        updateCrudAttributes(toUpdate, model);
         MODEL updated;
         try {
             updated = repository.save(toUpdate);

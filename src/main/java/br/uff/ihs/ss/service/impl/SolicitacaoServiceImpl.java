@@ -41,8 +41,9 @@ public class SolicitacaoServiceImpl extends BaseCrudService<Solicitacao> impleme
     }
 
     @Override
-    protected void updateAttributes(Solicitacao to, Solicitacao from) {
-        // TODO Auto-generated method stub
+    protected void updateCrudAttributes(Solicitacao to, Solicitacao from) {
+        to.setStatus(from.getStatus());
+        to.setSetor(from.getSetor());
 
     }
 

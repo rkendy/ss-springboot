@@ -21,8 +21,11 @@ public class UsuarioServiceImpl extends BaseCrudService<Usuario> implements Usua
     }
 
     @Override
-    protected void updateAttributes(Usuario to, Usuario from) {
-        // TODO Auto-generated method stub
+    protected void updateCrudAttributes(Usuario to, Usuario from) {
+        to.setEmail(from.getEmail());
+        to.setLocalizacao(from.getLocalizacao());
+        to.setLotacao(from.getLotacao());
+        to.setNome(from.getNome());
 
     }
 
