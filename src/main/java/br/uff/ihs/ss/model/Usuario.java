@@ -35,9 +35,12 @@ public class Usuario implements Serializable {
     private String email;
     private String lotacao;
     private String localizacao;
+    private Boolean admin;
 
     @PrePersist
     void preInsert() {
+        if (this.admin == null)
+            this.admin = false;
         // Include default values:
         // if (this.ativo == null)
         // this.ativo = true;
