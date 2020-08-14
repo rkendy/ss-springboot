@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.springframework.context.annotation.Profile;
+
 import br.uff.ihs.ss.dto.SetorDto;
 import br.uff.ihs.ss.model.Setor;
 import br.uff.ihs.ss.util.MapperUtil;

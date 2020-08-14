@@ -1,10 +1,14 @@
 package br.uff.ihs.ss.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -16,14 +20,16 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import br.uff.ihs.ss.helper.TestHelper;
-import br.uff.ihs.ss.service.BaseCrudService;
+import br.uff.ihs.ss.service.LdapService;
 import br.uff.ihs.ss.util.MapperUtil;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 public abstract class CrudControllerTestIT<MODEL> {
 
     static HttpHeaders headers = new HttpHeaders();
@@ -51,7 +57,7 @@ public abstract class CrudControllerTestIT<MODEL> {
     abstract public void checkCreatedJson(MODEL model, String json);
 
     @Test
-    public void givenValidId_whenGet_thenReturnSuccess() {
+    public void givenValidId_whenGet_thenReturnSuccess() throws Exception {
 
         MODEL model = repository.findAll().iterator().next();
 
