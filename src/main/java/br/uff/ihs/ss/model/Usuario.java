@@ -36,6 +36,7 @@ public class Usuario implements Serializable {
     private String lotacao;
     private String localizacao;
     private Boolean admin;
+    private Boolean ativo;
 
     @PrePersist
     void preInsert() {
