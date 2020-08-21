@@ -20,5 +20,6 @@ ARG JAR_FILE../build/libs/*.jar
 ENV MYSQL_DB_SS_SCHEMA=solicitacao
 ENV MYSQL_DB_SS_USERNAME=ss
 ENV MYSQL_DB_SS_PASSWORD=xxx
+ENV jwt.token.secret=secret
 COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
