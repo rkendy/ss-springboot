@@ -96,7 +96,8 @@ public class JwtSecurityUtil {
     }
 
     private Jws<Claims> getParsedToken(String token) {
-        return Jwts.parser().setSigningKey(secret.getBytes())
+        return Jwts.parserBuilder() //
+                .setSigningKey(secret.getBytes()).build() //
                 .parseClaimsJws(token.replace(JwtSecurityUtil.TOKEN_PREFIX, ""));
     }
 

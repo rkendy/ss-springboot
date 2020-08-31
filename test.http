@@ -1,5 +1,16 @@
+### Login
+POST http://localhost:8080/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "rkendy",
+    "password": "password"
+}
+
+
 ### All Setor:
-http://localhost:8080/api/setor/
+GET http://localhost:8080/api/setor/ HTTP/1.1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzZWN1cmUtYXBpIiwiYXVkIjoic2VjdXJlLWFwcCIsInN1YiI6InJrZW5keSIsImV4cCI6MTY4NTMxMjg1MSwicm9sIjpbXSwidXNlci1uYW1lIjoiUm9iZXJ0byBLZW5keSBTYXdhbXVyYSIsInVzZXItaWQiOjF9.7zIVWh7oKokDR4M9a2GSB7CMxRLBWQfczjrSkRNi1rwL3iuCvzXhrs8ZG-7Z9QIT_9ch4HETIV9mesBKNrhppA
 
 ### Setor id 1
 http://localhost:8080/api/setor/1

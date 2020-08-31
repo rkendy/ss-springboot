@@ -37,7 +37,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             ldapService.authenticate(username, password);
             usuario = usuarioService.findByLogin(username);
             if (usuario == null)
-                throw new BadCredentialsException("Usuario nao encontrado no banco de dados");
+                throw new BadCredentialsException("Usuario nao encontrado na base de dados");
             if (isAdmin(usuario)) {
                 grantedAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             }

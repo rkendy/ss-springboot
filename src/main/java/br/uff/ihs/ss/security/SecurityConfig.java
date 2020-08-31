@@ -19,14 +19,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-// @Profile("!https")
-// @Profile(value = {"development", "production"})
 @Profile("!test")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    // should return 401 when fail, overriding default Spring redirecting
-    // @Autowired
-    // private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     @Autowired
     private CustomAuthenticationProvider authProvider;
@@ -35,11 +29,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors();
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/login").permitAll().antMatchers("/api/admin/**").hasRole("ADMIN")
+        http.authorizeRequests() //
+                .antMatchers("/login").permitAll() //
+                .antMatchers("/api/admin/**").hasRole("ADMIN") //
                 .antMatchers("/api/**").authenticated();
-        http.addFilter(new JwtAuthenticationFilter(authenticationManager()))
-                .addFilter(new JwtAuthorizationFilter(authenticationManager())).sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.addFilter(new JwtAuthenticationFilter(authenticationManager())) //
+                .addFilter(new JwtAuthorizationFilter(authenticationManager())) //
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
