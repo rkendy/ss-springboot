@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
         http.csrf().disable();
         http.authorizeRequests() //
-                .antMatchers("/login").permitAll() //
+                .antMatchers(JwtSecurityUtil.LOGIN_URL).permitAll() //
                 .antMatchers("/api/admin/**").hasRole("ADMIN") //
                 .antMatchers("/api/**").authenticated();
 

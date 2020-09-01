@@ -38,9 +38,6 @@ public abstract class CrudControllerTestIT<MODEL> {
     @LocalServerPort
     int port;
 
-    // @Autowired
-    // BaseCrudService<MODEL> service;
-
     @Autowired
     CrudRepository<MODEL, Long> repository;
 

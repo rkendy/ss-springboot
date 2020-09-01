@@ -70,4 +70,5 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String token = jwtSecurityUtil.createToken(usuario, roles);
         response.setHeader(JwtSecurityUtil.TOKEN_HEADER, JwtSecurityUtil.TOKEN_PREFIX + token);
     }
+
 }

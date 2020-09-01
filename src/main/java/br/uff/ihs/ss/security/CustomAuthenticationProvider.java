@@ -32,18 +32,19 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = (String) authentication.getCredentials();
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
 
-        Usuario usuario = null;
         try {
             ldapService.authenticate(username, password);
-            usuario = usuarioService.findByLogin(username);
-            if (usuario == null)
-                throw new BadCredentialsException("Usuario nao encontrado na base de dados");
-            if (isAdmin(usuario)) {
-                grantedAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-            }
         } catch (Exception e) {
             throw new BadCredentialsException("Falha na Autenticacao LDAP");
         }
+
+        Usuario usuario = usuarioService.findByLogin(username);
+        if (usuario == null)
+            throw new BadCredentialsException("Usuario nao encontrado na base de dados");
+        if (isAdmin(usuario)) {
+            grantedAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }
+
         return new UsernamePasswordAuthenticationToken(usuario, password, grantedAuths);
     }
 
