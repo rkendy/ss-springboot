@@ -41,6 +41,11 @@ dependencies {
 	compile 'io.jsonwebtoken:jjwt-api:0.11.2'
 	runtime 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 
+	// To fix error running unit test (Login): cannot retry due to server authentication, in streaming mode
+	testRuntimeOnly group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.11'
+
+
+
 }
 
 test {
