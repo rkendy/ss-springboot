@@ -12,7 +12,7 @@ import br.uff.ihs.ss.service.SetorService;
 @RequestMapping(SetorController.ENDPOINT)
 public class SetorController extends BaseCrudController<Setor, SetorDto> {
 
-    public static final String ENDPOINT = "/api/setor";
+    public static final String ENDPOINT = "/api/admin/setor";
 
     @Autowired
     public SetorController(SetorService service) {

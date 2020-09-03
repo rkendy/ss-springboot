@@ -12,7 +12,7 @@ import br.uff.ihs.ss.service.UsuarioService;
 @RequestMapping(UsuarioController.ENDPOINT)
 public class UsuarioController extends BaseCrudController<Usuario, UsuarioDto> {
 
-    public static final String ENDPOINT = "/api/usuario";
+    public static final String ENDPOINT = "/api/admin/usuario";
 
     @Autowired
     public UsuarioController(UsuarioService service) {
