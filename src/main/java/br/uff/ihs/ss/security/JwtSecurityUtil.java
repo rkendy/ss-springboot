@@ -33,6 +33,7 @@ public class JwtSecurityUtil {
     public static final String TOKEN_ROLES_STR = "rol";
     public static final String TOKEN_USER_NAME = "user-name";
     public static final String TOKEN_USER_ID = "user-id";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
 
     public static JwtSecurityUtil getInstance(HttpServletRequest req) {
         ServletContext sc = req.getServletContext();

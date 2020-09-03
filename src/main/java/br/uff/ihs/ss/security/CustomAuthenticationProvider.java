@@ -42,7 +42,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (usuario == null)
             throw new BadCredentialsException("Usuario nao encontrado na base de dados");
         if (isAdmin(usuario)) {
-            grantedAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            grantedAuths.add(new SimpleGrantedAuthority(JwtSecurityUtil.ROLE_ADMIN));
         }
 
         return new UsernamePasswordAuthenticationToken(usuario, password, grantedAuths);
