@@ -1,12 +1,17 @@
 package br.uff.ihs.ss.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -38,13 +43,16 @@ public class Usuario implements Serializable {
     private Boolean admin;
     private Boolean ativo;
 
+    @ManyToMany(mappedBy = "usuarios")
+    private List<Setor> setores;
+
     @PrePersist
     void preInsert() {
         if (this.admin == null)
             this.admin = false;
         // Include default values:
-        // if (this.ativo == null)
-        // this.ativo = true;
+        if (this.ativo == null)
+            this.ativo = true;
     }
 
 }

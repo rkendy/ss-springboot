@@ -1,11 +1,16 @@
 package br.uff.ihs.ss.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -33,6 +38,10 @@ public class Setor implements Serializable {
     private String email;
     private String lotacao;
     private Boolean ativo;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "setor_usuario", joinColumns = @JoinColumn(name = "setor_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+    private List<Usuario> usuarios;
 
     @PrePersist
     void preInsert() {
