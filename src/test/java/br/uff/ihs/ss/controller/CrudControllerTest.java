@@ -32,90 +32,91 @@ import br.uff.ihs.ss.util.MapperUtil;
 @ExtendWith(MockitoExtension.class)
 public abstract class CrudControllerTest<MODEL, DTO> {
 
-    @Mock
-    private CrudService<MODEL> service;
+        @Mock
+        private CrudService<MODEL> service;
 
-    private TestHelper<MODEL> helper;
+        private TestHelper<MODEL> helper;
 
-    private BaseCrudController<MODEL, DTO> controller;
-    private MockMvc mockMvc;
+        private BaseCrudController<MODEL, DTO> controller;
+        private MockMvc mockMvc;
+        private MapperUtil mapperUtil = new MapperUtil();
 
-    public abstract String getEndPoint();
+        public abstract String getEndPoint();
 
-    public abstract BaseCrudController<MODEL, DTO> getController();
+        public abstract BaseCrudController<MODEL, DTO> getController();
 
-    public abstract TestHelper<MODEL> getTestHelperImpl();
+        public abstract TestHelper<MODEL> getTestHelperImpl();
 
-    @BeforeEach
-    void setup() {
-        helper = getTestHelperImpl();
-        controller = getController();
-        mockMvc = MockMvcBuilders.standaloneSetup(controller) //
-                .setControllerAdvice(new ExceptionAdvice()) //
-                .build();
-    }
+        @BeforeEach
+        void setup() {
+                helper = getTestHelperImpl();
+                controller = getController();
+                mockMvc = MockMvcBuilders.standaloneSetup(controller) //
+                                .setControllerAdvice(new ExceptionAdvice()) //
+                                .build();
+        }
 
-    @Test
-    void givenList_whenFindAll_thenSuccess() throws Exception {
-        List<MODEL> list = helper.createList();
+        @Test
+        void givenList_whenFindAll_thenSuccess() throws Exception {
+                List<MODEL> list = helper.createList();
 
-        when(service.findAll()).thenReturn(list);
+                when(service.findAll()).thenReturn(list);
 
-        mockMvc.perform(get(getEndPoint())) //
-                .andExpect(status().isOk()) //
-                .andExpect(jsonPath("$.length()", is(list.size())));
-    }
+                mockMvc.perform(get(getEndPoint())) //
+                                .andExpect(status().isOk()) //
+                                .andExpect(jsonPath("$.length()", is(list.size())));
+        }
 
-    @Test
-    void givenValidId_whenFindById_thenSuccess() throws Exception {
-        MODEL model = helper.createOne();
+        @Test
+        void givenValidId_whenFindById_thenSuccess() throws Exception {
+                MODEL model = helper.createOne();
 
-        when(service.findById(1L)).thenReturn(model);
+                when(service.findById(1L)).thenReturn(model);
 
-        mockMvc.perform(get(getEndPoint() + "/1")) //
-                .andExpect(status().isOk()); //
-    }
+                mockMvc.perform(get(getEndPoint() + "/1")) //
+                                .andExpect(status().isOk()); //
+        }
 
-    @Test
-    void givenInvalidId_whenFindById_thenReturnNotFound() throws Exception {
-        when(service.findById(anyLong())).thenThrow(NotFoundException.class);
+        @Test
+        void givenInvalidId_whenFindById_thenReturnNotFound() throws Exception {
+                when(service.findById(anyLong())).thenThrow(NotFoundException.class);
 
-        mockMvc.perform(get(getEndPoint() + "/1111")) //
-                .andExpect(status().isNotFound());
-    }
+                mockMvc.perform(get(getEndPoint() + "/1111")) //
+                                .andExpect(status().isNotFound());
+        }
 
-    @Test
-    void givenModel_whenCreate_thenSuccess() throws Exception {
-        MODEL created = helper.createOne();
+        @Test
+        void givenModel_whenCreate_thenSuccess() throws Exception {
+                MODEL created = helper.createOne();
 
-        when(service.create(any())).thenReturn(created);
+                when(service.create(any())).thenReturn(created);
 
-        mockMvc.perform( //
-                post(getEndPoint()) //
-                        .contentType(MediaType.APPLICATION_JSON) //
-                        .content(MapperUtil.convertToJson(created))) //
-                .andExpect(status().isCreated());
-    }
+                mockMvc.perform( //
+                                post(getEndPoint()) //
+                                                .contentType(MediaType.APPLICATION_JSON) //
+                                                .content(mapperUtil.convertToJson(created))) //
+                                .andExpect(status().isCreated());
+        }
 
-    @Test
-    void givenModel_whenUpdate_thenSuccess() throws Exception {
-        MODEL updated = helper.createOne();
+        @Test
+        void givenModel_whenUpdate_thenSuccess() throws Exception {
+                MODEL updated = helper.createOne();
 
-        when(service.update(anyLong(), any())).thenReturn(updated);
+                when(service.update(anyLong(), any())).thenReturn(updated);
 
-        mockMvc.perform( //
-                put(getEndPoint() + "/1") //
-                        .contentType(MediaType.APPLICATION_JSON) //
-                        .content(MapperUtil.convertToJson(updated))) //
-                .andExpect(status().isOk());
-    }
+                mockMvc.perform( //
+                                put(getEndPoint() + "/1") //
+                                                .contentType(MediaType.APPLICATION_JSON) //
+                                                .content(mapperUtil.convertToJson(updated))) //
+                                .andExpect(status().isOk());
+        }
 
-    @Test
-    void givenId_whenDelete_thenSuccess() throws Exception {
-        doNothing().when(service).delete(anyLong());
+        @Test
+        void givenId_whenDelete_thenSuccess() throws Exception {
+                doNothing().when(service).delete(anyLong());
 
-        mockMvc.perform( //
-                delete(getEndPoint() + "/1")) //
-                .andExpect(status().isOk()); //
-    }
+                mockMvc.perform( //
+                                delete(getEndPoint() + "/1")) //
+                                .andExpect(status().isOk()); //
+        }
 }

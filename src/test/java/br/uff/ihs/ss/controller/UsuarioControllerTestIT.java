@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 
 import br.uff.ihs.ss.dto.UsuarioDto;
 import br.uff.ihs.ss.model.Usuario;
-import br.uff.ihs.ss.util.MapperUtil;
 
 public class UsuarioControllerTestIT extends CrudControllerTestIT<Usuario> {
 
@@ -20,8 +19,8 @@ public class UsuarioControllerTestIT extends CrudControllerTestIT<Usuario> {
 
     @Override
     public void checkCreatedJson(Usuario model, String json) {
-        UsuarioDto expected = MapperUtil.convertToDto(model, UsuarioDto.class);
-        UsuarioDto returned = MapperUtil.convertFromJson(json, UsuarioDto.class);
+        UsuarioDto expected = mapperUtil.convertToDto(model, UsuarioDto.class);
+        UsuarioDto returned = mapperUtil.convertFromJson(json, UsuarioDto.class);
         assertNotNull(returned.getId());
         // assertEquals(expected.getCodigo(), returned.getCodigo());
         // assertEquals(expected.getNome(), returned.getNome());
@@ -37,7 +36,7 @@ public class UsuarioControllerTestIT extends CrudControllerTestIT<Usuario> {
         Usuario novoUsuario = helper.createOne();
         novoUsuario.setLogin(usuario.getLogin());
 
-        ResponseEntity<String> response = makePostRequest(MapperUtil.convertToJson(novoUsuario));
+        ResponseEntity<String> response = makePostRequest(mapperUtil.convertToJson(novoUsuario));
 
         assertEquals(HttpStatus.CONFLICT.value(), response.getStatusCode().value());
     }

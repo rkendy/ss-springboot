@@ -12,6 +12,8 @@ import br.uff.ihs.ss.helper.UsuarioTestHelper;
 @Component
 public class UsuarioTestHelper implements TestHelper<Usuario> {
 
+    MapperUtil mapperUtil = new MapperUtil();
+
     private Usuario createOne(String a, String b, String c) {
         return Usuario.builder().login(a).nome(b).email(c).build();
     }
@@ -28,8 +30,8 @@ public class UsuarioTestHelper implements TestHelper<Usuario> {
 
     @Override
     public String convertToJson(Usuario model) {
-        UsuarioDto dto = MapperUtil.convertToDto(model, UsuarioDto.class);
-        return MapperUtil.convertToJson(dto);
+        UsuarioDto dto = mapperUtil.convertToDto(model, UsuarioDto.class);
+        return mapperUtil.convertToJson(dto);
     }
 
     @Override

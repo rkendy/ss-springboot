@@ -12,6 +12,8 @@ import br.uff.ihs.ss.helper.SetorTestHelper;
 @Component
 public class SetorTestHelper implements TestHelper<Setor> {
 
+    MapperUtil mapperUtil = new MapperUtil();
+
     private Setor createOne(String a, String b) {
         return Setor.builder().nome(a).codigo(b).build();
     }
@@ -28,8 +30,8 @@ public class SetorTestHelper implements TestHelper<Setor> {
 
     @Override
     public String convertToJson(Setor model) {
-        SetorDto dto = MapperUtil.convertToDto(model, SetorDto.class);
-        return MapperUtil.convertToJson(dto);
+        SetorDto dto = mapperUtil.convertToDto(model, SetorDto.class);
+        return mapperUtil.convertToJson(dto);
     }
 
     @Override

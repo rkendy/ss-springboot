@@ -12,6 +12,8 @@ import br.uff.ihs.ss.helper.StatusTestHelper;
 @Component
 public class StatusTestHelper implements TestHelper<Status> {
 
+    MapperUtil mapperUtil = new MapperUtil();
+
     private Status createOne(String nome, Status.Codigo codigo) {
         return Status.builder().nome(nome).codigo(codigo).build();
     }
@@ -28,8 +30,8 @@ public class StatusTestHelper implements TestHelper<Status> {
 
     @Override
     public String convertToJson(Status model) {
-        StatusDto dto = MapperUtil.convertToDto(model, StatusDto.class);
-        return MapperUtil.convertToJson(dto);
+        StatusDto dto = mapperUtil.convertToDto(model, StatusDto.class);
+        return mapperUtil.convertToJson(dto);
     }
 
     @Override

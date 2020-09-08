@@ -1,7 +1,10 @@
 package br.uff.ihs.ss.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 
+import br.uff.ihs.ss.model.Setor;
 import lombok.Data;
 
 @Data
@@ -16,5 +19,7 @@ public class UsuarioDto {
     private String email;
     private String lotacao;
     private String localizacao;
+
+    private List<Setor> setores;
 
 }

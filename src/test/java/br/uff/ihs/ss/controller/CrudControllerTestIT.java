@@ -35,6 +35,8 @@ public abstract class CrudControllerTestIT<MODEL> {
     static HttpHeaders headers = new HttpHeaders();
     static TestRestTemplate restTemplate = new TestRestTemplate();
 
+    protected MapperUtil mapperUtil = new MapperUtil();
+
     @LocalServerPort
     int port;
 
@@ -73,7 +75,7 @@ public abstract class CrudControllerTestIT<MODEL> {
     public void givenModel_whenCreate_thenSuccess() {
         long beforeCount = repository.count();
         MODEL model = helper.createOne();
-        ResponseEntity<String> response = makePostRequest(MapperUtil.convertToJson(model));
+        ResponseEntity<String> response = makePostRequest(mapperUtil.convertToJson(model));
         long afterCount = repository.count();
         assertEquals(HttpStatus.CREATED.value(), response.getStatusCodeValue());
         assertEquals(beforeCount + 1, afterCount);

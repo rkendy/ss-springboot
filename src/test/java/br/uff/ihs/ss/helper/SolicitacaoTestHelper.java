@@ -14,6 +14,8 @@ import br.uff.ihs.ss.helper.SolicitacaoTestHelper;
 @Component
 public class SolicitacaoTestHelper implements TestHelper<Solicitacao> {
 
+    MapperUtil mapperUtil = new MapperUtil();
+
     private Solicitacao createOne(String a, String b) {
         return Solicitacao.builder().titulo(a).descricao(b) //
                 .setor(Setor.builder().id(1L).build()) //
@@ -32,8 +34,8 @@ public class SolicitacaoTestHelper implements TestHelper<Solicitacao> {
 
     @Override
     public String convertToJson(Solicitacao model) {
-        SolicitacaoDto dto = MapperUtil.convertToDto(model, SolicitacaoDto.class);
-        return MapperUtil.convertToJson(dto);
+        SolicitacaoDto dto = mapperUtil.convertToDto(model, SolicitacaoDto.class);
+        return mapperUtil.convertToJson(dto);
     }
 
     @Override
