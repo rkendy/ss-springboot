@@ -8,13 +8,10 @@ import br.uff.ihs.ss.dto.SolicitacaoDto;
 import br.uff.ihs.ss.model.Setor;
 import br.uff.ihs.ss.model.Solicitacao;
 import br.uff.ihs.ss.model.Usuario;
-import br.uff.ihs.ss.util.MapperUtil;
 import br.uff.ihs.ss.helper.SolicitacaoTestHelper;
 
 @Component
 public class SolicitacaoTestHelper implements TestHelper<Solicitacao> {
-
-    MapperUtil mapperUtil = new MapperUtil();
 
     private Solicitacao createOne(String a, String b) {
         return Solicitacao.builder().titulo(a).descricao(b) //

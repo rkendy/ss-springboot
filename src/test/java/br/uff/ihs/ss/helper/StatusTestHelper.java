@@ -6,13 +6,10 @@ import org.springframework.stereotype.Component;
 
 import br.uff.ihs.ss.dto.StatusDto;
 import br.uff.ihs.ss.model.Status;
-import br.uff.ihs.ss.util.MapperUtil;
 import br.uff.ihs.ss.helper.StatusTestHelper;
 
 @Component
 public class StatusTestHelper implements TestHelper<Status> {
-
-    MapperUtil mapperUtil = new MapperUtil();
 
     private Status createOne(String nome, Status.Codigo codigo) {
         return Status.builder().nome(nome).codigo(codigo).build();

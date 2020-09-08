@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import br.uff.ihs.ss.service.CrudService;
-// import br.uff.ihs.ss.util.MapperUtil;
 import br.uff.ihs.ss.util.MapperUtil;
 
 public abstract class BaseCrudController<MODEL, DTO> {
@@ -29,7 +28,8 @@ public abstract class BaseCrudController<MODEL, DTO> {
 
     abstract protected Class<DTO> getDtoClass();
 
-    private MapperUtil mapperUtil = new MapperUtil();
+    @Autowired
+    private MapperUtil mapperUtil;
 
     @GetMapping
     public ResponseEntity<List<DTO>> findAll() {

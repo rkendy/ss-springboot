@@ -6,13 +6,10 @@ import org.springframework.stereotype.Component;
 
 import br.uff.ihs.ss.dto.SetorDto;
 import br.uff.ihs.ss.model.Setor;
-import br.uff.ihs.ss.util.MapperUtil;
 import br.uff.ihs.ss.helper.SetorTestHelper;
 
 @Component
 public class SetorTestHelper implements TestHelper<Setor> {
-
-    MapperUtil mapperUtil = new MapperUtil();
 
     private Setor createOne(String a, String b) {
         return Setor.builder().nome(a).codigo(b).build();

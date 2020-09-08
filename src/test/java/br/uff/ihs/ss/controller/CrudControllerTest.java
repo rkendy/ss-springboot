@@ -18,6 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,91 +33,93 @@ import br.uff.ihs.ss.util.MapperUtil;
 @ExtendWith(MockitoExtension.class)
 public abstract class CrudControllerTest<MODEL, DTO> {
 
-        @Mock
-        private CrudService<MODEL> service;
+    @Mock
+    private CrudService<MODEL> service;
 
-        private TestHelper<MODEL> helper;
+    @Spy
+    private MapperUtil mapperUtil;
 
-        private BaseCrudController<MODEL, DTO> controller;
-        private MockMvc mockMvc;
-        private MapperUtil mapperUtil = new MapperUtil();
+    private TestHelper<MODEL> helper;
 
-        public abstract String getEndPoint();
+    private BaseCrudController<MODEL, DTO> controller;
+    private MockMvc mockMvc;
 
-        public abstract BaseCrudController<MODEL, DTO> getController();
+    public abstract String getEndPoint();
 
-        public abstract TestHelper<MODEL> getTestHelperImpl();
+    public abstract BaseCrudController<MODEL, DTO> getController();
 
-        @BeforeEach
-        void setup() {
-                helper = getTestHelperImpl();
-                controller = getController();
-                mockMvc = MockMvcBuilders.standaloneSetup(controller) //
-                                .setControllerAdvice(new ExceptionAdvice()) //
-                                .build();
-        }
+    public abstract TestHelper<MODEL> getTestHelperImpl();
 
-        @Test
-        void givenList_whenFindAll_thenSuccess() throws Exception {
-                List<MODEL> list = helper.createList();
+    @BeforeEach
+    void setup() {
+        helper = getTestHelperImpl();
+        controller = getController();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller) //
+                .setControllerAdvice(new ExceptionAdvice()) //
+                .build();
+    }
 
-                when(service.findAll()).thenReturn(list);
+    @Test
+    void givenList_whenFindAll_thenSuccess() throws Exception {
+        List<MODEL> list = helper.createList();
 
-                mockMvc.perform(get(getEndPoint())) //
-                                .andExpect(status().isOk()) //
-                                .andExpect(jsonPath("$.length()", is(list.size())));
-        }
+        when(service.findAll()).thenReturn(list);
 
-        @Test
-        void givenValidId_whenFindById_thenSuccess() throws Exception {
-                MODEL model = helper.createOne();
+        mockMvc.perform(get(getEndPoint())) //
+                .andExpect(status().isOk()) //
+                .andExpect(jsonPath("$.length()", is(list.size())));
+    }
 
-                when(service.findById(1L)).thenReturn(model);
+    @Test
+    void givenValidId_whenFindById_thenSuccess() throws Exception {
+        MODEL model = helper.createOne();
 
-                mockMvc.perform(get(getEndPoint() + "/1")) //
-                                .andExpect(status().isOk()); //
-        }
+        when(service.findById(1L)).thenReturn(model);
 
-        @Test
-        void givenInvalidId_whenFindById_thenReturnNotFound() throws Exception {
-                when(service.findById(anyLong())).thenThrow(NotFoundException.class);
+        mockMvc.perform(get(getEndPoint() + "/1")) //
+                .andExpect(status().isOk()); //
+    }
 
-                mockMvc.perform(get(getEndPoint() + "/1111")) //
-                                .andExpect(status().isNotFound());
-        }
+    @Test
+    void givenInvalidId_whenFindById_thenReturnNotFound() throws Exception {
+        when(service.findById(anyLong())).thenThrow(NotFoundException.class);
 
-        @Test
-        void givenModel_whenCreate_thenSuccess() throws Exception {
-                MODEL created = helper.createOne();
+        mockMvc.perform(get(getEndPoint() + "/1111")) //
+                .andExpect(status().isNotFound());
+    }
 
-                when(service.create(any())).thenReturn(created);
+    @Test
+    void givenModel_whenCreate_thenSuccess() throws Exception {
+        MODEL created = helper.createOne();
 
-                mockMvc.perform( //
-                                post(getEndPoint()) //
-                                                .contentType(MediaType.APPLICATION_JSON) //
-                                                .content(mapperUtil.convertToJson(created))) //
-                                .andExpect(status().isCreated());
-        }
+        when(service.create(any())).thenReturn(created);
 
-        @Test
-        void givenModel_whenUpdate_thenSuccess() throws Exception {
-                MODEL updated = helper.createOne();
+        mockMvc.perform( //
+                post(getEndPoint()) //
+                        .contentType(MediaType.APPLICATION_JSON) //
+                        .content(helper.convertToJson(created))) //
+                .andExpect(status().isCreated());
+    }
 
-                when(service.update(anyLong(), any())).thenReturn(updated);
+    @Test
+    void givenModel_whenUpdate_thenSuccess() throws Exception {
+        MODEL updated = helper.createOne();
 
-                mockMvc.perform( //
-                                put(getEndPoint() + "/1") //
-                                                .contentType(MediaType.APPLICATION_JSON) //
-                                                .content(mapperUtil.convertToJson(updated))) //
-                                .andExpect(status().isOk());
-        }
+        when(service.update(anyLong(), any())).thenReturn(updated);
 
-        @Test
-        void givenId_whenDelete_thenSuccess() throws Exception {
-                doNothing().when(service).delete(anyLong());
+        mockMvc.perform( //
+                put(getEndPoint() + "/1") //
+                        .contentType(MediaType.APPLICATION_JSON) //
+                        .content(helper.convertToJson(updated))) //
+                .andExpect(status().isOk());
+    }
 
-                mockMvc.perform( //
-                                delete(getEndPoint() + "/1")) //
-                                .andExpect(status().isOk()); //
-        }
+    @Test
+    void givenId_whenDelete_thenSuccess() throws Exception {
+        doNothing().when(service).delete(anyLong());
+
+        mockMvc.perform( //
+                delete(getEndPoint() + "/1")) //
+                .andExpect(status().isOk()); //
+    }
 }

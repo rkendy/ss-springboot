@@ -10,6 +10,7 @@ import org.hibernate.collection.spi.PersistentCollection;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+@Component
 public class MapperUtil {
     private ModelMapper modelMapper;
     private ObjectMapper objectMapper;
