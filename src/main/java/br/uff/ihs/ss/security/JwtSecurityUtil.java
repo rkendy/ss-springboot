@@ -60,6 +60,10 @@ public class JwtSecurityUtil {
                 .map(authority -> new SimpleGrantedAuthority((String) authority)).collect(Collectors.toList());
     }
 
+    public Boolean isAdmin(Claims body) {
+        return getRoles(body).stream().filter(e -> ROLE_ADMIN.equals(e.getAuthority())).findAny().isPresent();
+    }
+
     public String getUsername(Claims body) {
         return body.getSubject();
     }

@@ -63,7 +63,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String username = jwtSecurityUtil.getUsername(body);
         String nome = jwtSecurityUtil.getUsuarioNome(body);
         Long usuarioId = jwtSecurityUtil.getUsuarioId(body);
-        return Usuario.builder().login(username).id(usuarioId).nome(nome).build();
+        Boolean isAdmin = jwtSecurityUtil.isAdmin(body);
+        return Usuario.builder().login(username).id(usuarioId).nome(nome).admin(isAdmin).build();
     }
 
 }
