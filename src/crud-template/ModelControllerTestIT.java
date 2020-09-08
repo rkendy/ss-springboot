@@ -17,8 +17,8 @@ public class $Model$ControllerTestIT extends CrudControllerTestIT<$Model$> {
 
     @Override
     public void checkCreatedJson($Model$ model, String json) {
-        $Model$Dto expected = MapperUtil.convertToDto(model, $Model$Dto.class);
-        $Model$Dto returned = MapperUtil.convertFromJson(json, $Model$Dto.class);
+        $Model$Dto expected = mapperUtil.convertToDto(model, $Model$Dto.class);
+        $Model$Dto returned = mapperUtil.convertFromJson(json, $Model$Dto.class);
         assertNotNull(returned.getId());
         // assertEquals(expected.getCodigo(), returned.getCodigo());
         // assertEquals(expected.getNome(), returned.getNome());

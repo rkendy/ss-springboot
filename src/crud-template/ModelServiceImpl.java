@@ -20,4 +20,9 @@ public class $Model$ServiceImpl extends BaseCrudService<$Model$> implements $Mod
         super.setModelClass($Model$.class);
     }
 
+    @Override
+    protected void updateCrudAttributes($Model$ to, $Model$ from) {
+        throw new RuntimeException("Set attributes to update");
+    }
+
 }
