@@ -6,18 +6,18 @@ import org.springframework.stereotype.Component;
 
 import br.uff.ihs.ss.dto.StatusDto;
 import br.uff.ihs.ss.model.Status;
-import br.uff.ihs.ss.helper.StatusTestHelper;
+import br.uff.ihs.ss.model.StatusCodigo;
 
 @Component
 public class StatusTestHelper implements TestHelper<Status> {
 
-    private Status createOne(String nome, Status.Codigo codigo) {
+    private Status createOne(String nome, StatusCodigo codigo) {
         return Status.builder().nome(nome).codigo(codigo).build();
     }
 
     @Override
     public Status createOne() {
-        return createOne("Nome Status", Status.Codigo.EM_ANALISE);
+        return createOne("Nome Status", StatusCodigo.EM_ANALISE);
     }
 
     @Override
@@ -34,8 +34,8 @@ public class StatusTestHelper implements TestHelper<Status> {
     @Override
     public List<Status> createList() {
         return List.of( //
-                createOne("Nome1", Status.Codigo.EM_ANALISE), //
-                createOne("Nome2", Status.Codigo.CANCELADO));
+                createOne("Nome1", StatusCodigo.EM_ANALISE), //
+                createOne("Nome2", StatusCodigo.CANCELADO));
     }
 
 }

@@ -16,6 +16,7 @@ import br.uff.ihs.ss.helper.SolicitacaoTestHelper;
 import br.uff.ihs.ss.helper.TestHelper;
 import br.uff.ihs.ss.model.Solicitacao;
 import br.uff.ihs.ss.model.Status;
+import br.uff.ihs.ss.model.StatusCodigo;
 import br.uff.ihs.ss.repository.SolicitacaoRepository;
 import br.uff.ihs.ss.repository.StatusRepository;
 import br.uff.ihs.ss.service.impl.SolicitacaoServiceImpl;
@@ -59,7 +60,7 @@ public class SolicitacaoServiceTest extends CrudServiceTest<Solicitacao> {
     public void givenModel_whenCreate_thenCreateSuccess() {
 
         Solicitacao expected = helper.createOne();
-        Status.Codigo aberto = Status.Codigo.ABERTO;
+        StatusCodigo aberto = StatusCodigo.ABERTO;
 
         when(repository.save(any())).thenReturn(expected);
         // Optional<Status> statusOp =

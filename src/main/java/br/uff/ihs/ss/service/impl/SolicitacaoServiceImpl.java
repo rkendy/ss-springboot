@@ -1,8 +1,6 @@
 package br.uff.ihs.ss.service.impl;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.uff.ihs.ss.model.Solicitacao;
 import br.uff.ihs.ss.model.Status;
+import br.uff.ihs.ss.model.StatusCodigo;
 import br.uff.ihs.ss.repository.SolicitacaoRepository;
 import br.uff.ihs.ss.repository.StatusRepository;
 import br.uff.ihs.ss.service.BaseCrudService;
@@ -33,7 +32,7 @@ public class SolicitacaoServiceImpl extends BaseCrudService<Solicitacao> impleme
 
     @Override
     public Solicitacao create(Solicitacao solicitacao) {
-        Optional<Status> statusOp = statusRepository.findByCodigo(Status.Codigo.ABERTO);
+        Optional<Status> statusOp = statusRepository.findByCodigo(StatusCodigo.ABERTO);
 
         solicitacao.setCriacao(LocalDateTime.now());
         solicitacao.setStatus(statusOp.get());

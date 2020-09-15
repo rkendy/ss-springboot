@@ -21,10 +21,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "status")
 public class Status {
-    // Mudanca no Enum deve refletir mudanca na coluna Status.Codigo
-    public static enum Codigo {
-        CONCLUIDO, ABERTO, CANCELADO, PENDENTE_CLIENTE, EM_EXECUCAO, PENDENTE, EM_ANALISE
-    }
+    
+    // public static enum Codigo {
+    //     CONCLUIDO, ABERTO, CANCELADO, PENDENTE_CLIENTE, EM_EXECUCAO, PENDENTE, EM_ANALISE
+    // }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class Status {
 
     @Column(unique = true)
     @Enumerated(EnumType.STRING)
-    private Codigo codigo;
+    private StatusCodigo codigo;
 
     private String nome;
 
