@@ -513,3 +513,8 @@ DELIMITER ;
 -- DROP TABLE usuario_backup;
 -- DROP TABLE usuario_interessado_backup;
 -- DROP TABLE veiculo_backup;
+
+-- Check for sequences?
+-- show table status
+-- select max(id) from setor
+-- ALTER TABLE setor AUTO_INCREMENT = <value from step 1 + 100>;
