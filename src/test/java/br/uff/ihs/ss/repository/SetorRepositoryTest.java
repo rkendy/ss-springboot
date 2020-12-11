@@ -27,4 +27,23 @@ public class SetorRepositoryTest extends CrudRepositoryTest<SetorRepository, Set
         assertEquals("01", created.getLotacao());
     }
 
+    @Test
+    public void givenSetorAtivo_whenFindByAtivo_thenReturnList() {
+
+        long totalCount = repository.count();
+        long activeCount = repository.findByAtivo(true).size();
+        long inactiveCount = repository.findByAtivo(false).size();
+
+        final Setor ativo = helper.createOne();
+        final Setor inativo = helper.createOne();
+        ativo.setAtivo(true);
+        inativo.setAtivo(false);
+        repository.save(ativo);
+        repository.save(inativo);
+
+        assertEquals(totalCount + 2, repository.count());
+        assertEquals(activeCount + 1, repository.findByAtivo(true).size());
+        assertEquals(inactiveCount + 1, repository.findByAtivo(false).size());
+    }
+
 }

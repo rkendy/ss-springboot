@@ -1,5 +1,7 @@
 package br.uff.ihs.ss.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,11 @@ public class SetorServiceImpl extends BaseCrudService<Setor> implements SetorSer
         to.setNome(from.getNome());
         to.setAtivo(from.getAtivo());
         to.setEmail(from.getEmail());
+    }
+
+    @Override
+    public List<Setor> findSetorAtivo() {
+        return repository.findByAtivo(true);
     }
 
 }
