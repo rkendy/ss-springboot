@@ -59,10 +59,12 @@ content-type: application/json
 
 ### All Sol:
 http://localhost:8080/api/solicitacao/
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzZWN1cmUtYXBpIiwiYXVkIjoic2VjdXJlLWFwcCIsInN1YiI6InJrZW5keSIsImV4cCI6MTY4NjAwMTgyNCwicm9sIjpbIlJPTEVfQURNSU4iXSwidXNlci1uYW1lIjoiUm9iZXJ0byBLZW5keSBTYXdhbXVyYSIsInVzZXItaWQiOjF9.EX-OZPUWL7o8gmiEB9P-Go8-r_ra52j-rObP1LUHkliNToWKh6tIeIn4Dqcv_jwrpGKCxcZ7xFEVgx37yxZMNA
 
 
 ### Sol id 1
-http://localhost:8080/api/solicitacao/42536
+http://localhost:8080/api/solicitacao/1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzZWN1cmUtYXBpIiwiYXVkIjoic2VjdXJlLWFwcCIsInN1YiI6InJrZW5keSIsImV4cCI6MTY4NjAwMTgyNCwicm9sIjpbIlJPTEVfQURNSU4iXSwidXNlci1uYW1lIjoiUm9iZXJ0byBLZW5keSBTYXdhbXVyYSIsInVzZXItaWQiOjF9.EX-OZPUWL7o8gmiEB9P-Go8-r_ra52j-rObP1LUHkliNToWKh6tIeIn4Dqcv_jwrpGKCxcZ7xFEVgx37yxZMNA
 
 ### Create Solicitacao:
 POST http://localhost:8080/api/solicitacao HTTP/1.1

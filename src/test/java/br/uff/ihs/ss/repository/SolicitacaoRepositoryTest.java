@@ -3,7 +3,10 @@ package br.uff.ihs.ss.repository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
+import org.springframework.data.jpa.domain.Specification;
 
 import br.uff.ihs.ss.helper.SolicitacaoTestHelper;
 import br.uff.ihs.ss.model.Solicitacao;
@@ -24,4 +27,41 @@ public class SolicitacaoRepositoryTest extends CrudRepositoryTest<SolicitacaoRep
         // assertEquals(e.get(), created.get());
     }
 
+    @Test
+    public void givenTitulo_whenFindByTitulo_returnCorrectCount() {
+        List<Solicitacao> list = repository.findAll(SolicitacaoSpecification.likeTitulo("Titulo"));
+        int size = list.size();
+        assertEquals(3, size);
+    }
+
+    @Test
+    public void givenDescricao_whenFindByDescricao_returnCorrectCount() {
+        List<Solicitacao> list = repository.findAll(SolicitacaoSpecification.likeDescricao("Descricao"));
+        int size = list.size();
+        assertEquals(3, size);
+    }
+
+    @Test
+    public void givenSetorId_whenFindBySetor_returnCorrectCount() {
+        List<Solicitacao> list = repository.findAll(SolicitacaoSpecification.equalSetor(1));
+        int size = list.size();
+        assertEquals(2, size);
+    }
+
+    @Test
+    public void givenCriadorId_whenFindByCriador_returnCorrectCount() {
+        List<Solicitacao> list = repository.findAll(SolicitacaoSpecification.equalCriador(1));
+        int size = list.size();
+        assertEquals(3, size);
+    }
+
+    @Test
+    public void givenCriadorIdAndSetorId_whenFindBySpecification_returnCorrectCount() {
+        Specification<Solicitacao> specs = Specification.where( //
+                SolicitacaoSpecification.equalSetor(1) //
+                        .and(SolicitacaoSpecification.equalCriador(1)));
+        List<Solicitacao> list = repository.findAll(specs);
+        int size = list.size();
+        assertEquals(2, size);
+    }
 }
