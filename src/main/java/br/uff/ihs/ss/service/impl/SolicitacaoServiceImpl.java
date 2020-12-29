@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +51,7 @@ public class SolicitacaoServiceImpl extends BaseCrudService<Solicitacao> impleme
     }
 
     @Override
-    public List<Solicitacao> findByFilter(SolicitacaoFilterDto filter) {
+    public List<Solicitacao> findByFilter(SolicitacaoFilterDto filter, Pageable pageable) {
         Specification<Solicitacao> specs = Specification.where( //
                 SolicitacaoSpecification.equalSetor(filter.getSetorId())) //
                 .and(SolicitacaoSpecification.equalStatus(filter.getStatusId()))

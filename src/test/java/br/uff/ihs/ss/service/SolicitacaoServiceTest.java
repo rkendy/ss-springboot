@@ -81,7 +81,7 @@ public class SolicitacaoServiceTest extends CrudServiceTest<Solicitacao> {
         List<Solicitacao> list = helper.createList();
         when(repository.findAll(any())).thenReturn(list);
 
-        List<Solicitacao> result = solicitacaoService.findByFilter(new SolicitacaoFilterDto());
+        List<Solicitacao> result = solicitacaoService.findByFilter(new SolicitacaoFilterDto(), null);
         assertEquals(list.size(), result.size());
     }
 

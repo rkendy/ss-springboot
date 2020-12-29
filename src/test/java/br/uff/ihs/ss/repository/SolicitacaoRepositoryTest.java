@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 import br.uff.ihs.ss.helper.SolicitacaoTestHelper;
@@ -75,6 +78,15 @@ public class SolicitacaoRepositoryTest extends CrudRepositoryTest<SolicitacaoRep
     public void givenStatusId_whenFindBySpecification_returnCorrectCount() {
         List<Solicitacao> list = repository.findAll(SolicitacaoSpecification.equalStatus(1));
         assertEquals(3, list.size());
+    }
+
+    @Test
+    public void givenPagination_whenFindAll_returnCorrectCount() {
+        int pageNumber = 0;
+        int pageSize = 2;
+        Pageable paging = PageRequest.of(pageNumber, pageSize);
+        Page<Solicitacao> list = repository.findAll(null, paging);
+        assertEquals(pageSize, list.getSize());
     }
 
 }
