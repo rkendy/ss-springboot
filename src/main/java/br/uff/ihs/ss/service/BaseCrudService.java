@@ -47,10 +47,6 @@ public abstract class BaseCrudService<MODEL> {
         return result;
     }
 
-    public List<MODEL> findByFilter(MODEL filter) {
-        return null;
-    }
-
     public MODEL findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new NotFoundException(modelClass, id));
     }

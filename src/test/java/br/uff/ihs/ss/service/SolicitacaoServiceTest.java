@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.data.repository.CrudRepository;
 
+import br.uff.ihs.ss.dto.SolicitacaoFilterDto;
 import br.uff.ihs.ss.helper.SolicitacaoTestHelper;
 import br.uff.ihs.ss.helper.TestHelper;
 import br.uff.ihs.ss.model.Solicitacao;
@@ -72,6 +74,15 @@ public class SolicitacaoServiceTest extends CrudServiceTest<Solicitacao> {
 
         assertNotNull(actual);
         assertAttributes(expected, actual);
+    }
+
+    @Test
+    public void givenEmptyFilter_whenFindByFilter_shouldReturnAll() {
+        List<Solicitacao> list = helper.createList();
+        when(repository.findAll(any())).thenReturn(list);
+
+        List<Solicitacao> result = solicitacaoService.findByFilter(new SolicitacaoFilterDto());
+        assertEquals(list.size(), result.size());
     }
 
 }
