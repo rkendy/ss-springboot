@@ -28,5 +28,6 @@ public class SolicitacaoDto {
     private UsuarioDto responsavel;
 
     private SetorDto setor;
+    private StatusDto status;
 
 }

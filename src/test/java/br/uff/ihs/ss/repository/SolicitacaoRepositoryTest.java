@@ -70,4 +70,11 @@ public class SolicitacaoRepositoryTest extends CrudRepositoryTest<SolicitacaoRep
         List<Solicitacao> list = repository.findAll(SolicitacaoSpecification.equalResponsavel(2));
         assertEquals(2, list.size());
     }
+
+    @Test
+    public void givenStatusId_whenFindBySpecification_returnCorrectCount() {
+        List<Solicitacao> list = repository.findAll(SolicitacaoSpecification.equalStatus(1));
+        assertEquals(3, list.size());
+    }
+
 }
