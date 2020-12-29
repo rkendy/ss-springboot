@@ -26,10 +26,9 @@ public class SolicitacaoSpecification {
         return equalSpecification("criador", usuarioId);
     }
 
-    // public static Specification<Solicitacao> equalResponsavel(Integer usuarioId)
-    // {
-    // return equalSpecification("responsavel", usuarioId);
-    // }
+    public static Specification<Solicitacao> equalResponsavel(Integer usuarioId) {
+        return equalSpecification("responsavel", usuarioId);
+    }
 
     private static Specification<Solicitacao> likeSpecification(String column, String value) {
         if (value == null)

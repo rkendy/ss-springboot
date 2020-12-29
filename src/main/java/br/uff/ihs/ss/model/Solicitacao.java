@@ -39,6 +39,9 @@ public class Solicitacao implements Serializable {
     private Usuario criador;
 
     @OneToOne
+    private Usuario responsavel;
+
+    @OneToOne
     private Setor setor;
 
     @OneToOne

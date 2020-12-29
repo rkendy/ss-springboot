@@ -25,6 +25,7 @@ public class SolicitacaoDto {
     private LocalDateTime criacao;
 
     private UsuarioDto criador;
+    private UsuarioDto responsavel;
 
     private SetorDto setor;
 

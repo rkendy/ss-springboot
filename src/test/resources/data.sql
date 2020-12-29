@@ -10,9 +10,9 @@ insert into usuario(id, login,nome,email) values (1, 'login01', 'Nome 01', 'emai
 insert into usuario(id, login,nome,email) values (2, 'login02', 'Nome 02', 'email02@email.com');
 insert into usuario(id, login,nome,email) values (3, 'login03', 'Nome 03', 'email03@email.com');
 
-insert into solicitacao(titulo, descricao, setor_id, criador_id) values ('Titulo 01', 'Descricao 01', 1, 1);
-insert into solicitacao(titulo, descricao, setor_id, criador_id) values ('Titulo 02', 'Descricao 02', 1, 1);
-insert into solicitacao(titulo, descricao, setor_id, criador_id) values ('Titulo 03', 'Descricao 03', 2, 1);
+insert into solicitacao(titulo, descricao, setor_id, criador_id, responsavel_id) values ('Titulo 01', 'Descricao 01', 1, 1, 2);
+insert into solicitacao(titulo, descricao, setor_id, criador_id, responsavel_id) values ('Titulo 02', 'Descricao 02', 1, 1, 2);
+insert into solicitacao(titulo, descricao, setor_id, criador_id, responsavel_id) values ('Titulo 03', 'Descricao 03', 2, 1, null);
 
 -- insert into veiculo(placa,modelo,capacidade,lotacao,ativo,quilometragem) values ('ABC-0101', 'Fiat 147', 10, '01', true, 1000);
 -- insert into veiculo(placa,modelo,capacidade,lotacao,ativo,quilometragem) values ('XYZ-9999', 'Variant', 20, '01', true, 2000);

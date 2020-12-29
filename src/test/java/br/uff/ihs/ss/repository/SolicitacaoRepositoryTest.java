@@ -64,4 +64,10 @@ public class SolicitacaoRepositoryTest extends CrudRepositoryTest<SolicitacaoRep
         int size = list.size();
         assertEquals(2, size);
     }
+
+    @Test
+    public void givenResponsavelId_whenFindBySpecification_returnCorrectCount() {
+        List<Solicitacao> list = repository.findAll(SolicitacaoSpecification.equalResponsavel(2));
+        assertEquals(2, list.size());
+    }
 }
