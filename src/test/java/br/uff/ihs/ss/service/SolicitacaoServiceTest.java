@@ -9,8 +9,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.CrudRepository;
 
 import br.uff.ihs.ss.dto.SolicitacaoFilterDto;
@@ -78,11 +84,14 @@ public class SolicitacaoServiceTest extends CrudServiceTest<Solicitacao> {
 
     @Test
     public void givenEmptyFilter_whenFindByFilter_shouldReturnAll() {
-        List<Solicitacao> list = helper.createList();
-        when(repository.findAll(any())).thenReturn(list);
+        Page<Solicitacao> list = Mockito.mock(Page.class);
+        Pageable paging = PageRequest.of(0, 1);
 
-        List<Solicitacao> result = solicitacaoService.findByFilter(new SolicitacaoFilterDto(), null);
-        assertEquals(list.size(), result.size());
+        when(repository.findAll(ArgumentMatchers.<Specification<Solicitacao>>any(), any(Pageable.class)))
+                .thenReturn(list);
+
+        Page<Solicitacao> result = solicitacaoService.findByFilter(new SolicitacaoFilterDto(), paging);
+        assertEquals(list.getSize(), result.getSize());
     }
 
 }
