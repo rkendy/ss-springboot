@@ -7,5 +7,5 @@ import br.uff.ihs.ss.dto.SolicitacaoFilterDto;
 import br.uff.ihs.ss.model.Solicitacao;
 
 public interface SolicitacaoService extends CrudService<Solicitacao> {
-    Page<Solicitacao> findByFilter(SolicitacaoFilterDto filter, Pageable pageable);
+    public Page<Solicitacao> findByFilter(SolicitacaoFilterDto filter, Pageable pageable);
 }

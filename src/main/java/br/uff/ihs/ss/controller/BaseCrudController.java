@@ -22,18 +22,20 @@ public abstract class BaseCrudController<MODEL, DTO> {
 
     final public String ENDPOINT_ID = "/{id}";
 
-    protected CrudService<MODEL> service;
+    // protected CrudService<MODEL> service;
 
-    abstract protected Class<MODEL> getModelClass();
+    protected abstract Class<MODEL> getModelClass();
 
-    abstract protected Class<DTO> getDtoClass();
+    protected abstract Class<DTO> getDtoClass();
+
+    protected abstract CrudService<MODEL> getService();
 
     @Autowired
     private MapperUtil mapperUtil;
 
     @GetMapping
     public ResponseEntity<List<DTO>> findAll() {
-        List<MODEL> list = service.findAll();
+        List<MODEL> list = getService().findAll();
         List<DTO> listDto = new ArrayList<>();
         list.forEach(e -> {
             listDto.add(mapperUtil.convertToDto(e, getDtoClass()));
@@ -45,24 +47,25 @@ public abstract class BaseCrudController<MODEL, DTO> {
     public ResponseEntity<DTO> getById(@PathVariable Long id) {
         return ResponseEntity.ok( //
                 mapperUtil.convertToDto( //
-                        service.findById(id), getDtoClass()));
+                        getService().findById(id), getDtoClass()));
     }
 
     @PostMapping
     public ResponseEntity<DTO> create(@RequestBody @Valid DTO dto) {
-        MODEL created = service.create(mapperUtil.convertToEntity(dto, getModelClass()));
+        MODEL created = getService().create(mapperUtil.convertToEntity(dto, getModelClass()));
         return ResponseEntity.status(HttpStatus.CREATED).body(mapperUtil.convertToDto(created, getDtoClass()));
     }
 
     @PutMapping(ENDPOINT_ID)
     public ResponseEntity<DTO> update(@PathVariable Long id, @RequestBody @Valid DTO dto) {
-        MODEL updated = service.update(id, mapperUtil.convertToEntity(dto, getModelClass()));
+        MODEL updated = getService().update(id, mapperUtil.convertToEntity(dto, getModelClass()));
         return ResponseEntity.ok( //
                 mapperUtil.convertToDto(updated, getDtoClass()));
     }
 
     @DeleteMapping(ENDPOINT_ID)
     public void delete(@PathVariable Long id) {
-        service.delete(id);
+        getService().delete(id);
     }
+
 }

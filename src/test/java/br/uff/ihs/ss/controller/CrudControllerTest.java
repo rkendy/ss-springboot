@@ -33,8 +33,8 @@ import br.uff.ihs.ss.util.MapperUtil;
 @ExtendWith(MockitoExtension.class)
 public abstract class CrudControllerTest<MODEL, DTO> {
 
-    @Mock
-    private CrudService<MODEL> service;
+    // @Mock
+    // private CrudService<MODEL> service;
 
     @Spy
     private MapperUtil mapperUtil;
@@ -43,6 +43,8 @@ public abstract class CrudControllerTest<MODEL, DTO> {
 
     private BaseCrudController<MODEL, DTO> controller;
     private MockMvc mockMvc;
+
+    protected abstract CrudService<MODEL> getService();
 
     public abstract String getEndPoint();
 
@@ -63,7 +65,7 @@ public abstract class CrudControllerTest<MODEL, DTO> {
     void givenList_whenFindAll_thenSuccess() throws Exception {
         List<MODEL> list = helper.createList();
 
-        when(service.findAll()).thenReturn(list);
+        when(getService().findAll()).thenReturn(list);
 
         mockMvc.perform(get(getEndPoint())) //
                 .andExpect(status().isOk()) //
@@ -74,7 +76,7 @@ public abstract class CrudControllerTest<MODEL, DTO> {
     void givenValidId_whenFindById_thenSuccess() throws Exception {
         MODEL model = helper.createOne();
 
-        when(service.findById(1L)).thenReturn(model);
+        when(getService().findById(1L)).thenReturn(model);
 
         mockMvc.perform(get(getEndPoint() + "/1")) //
                 .andExpect(status().isOk()); //
@@ -82,7 +84,7 @@ public abstract class CrudControllerTest<MODEL, DTO> {
 
     @Test
     void givenInvalidId_whenFindById_thenReturnNotFound() throws Exception {
-        when(service.findById(anyLong())).thenThrow(NotFoundException.class);
+        when(getService().findById(anyLong())).thenThrow(NotFoundException.class);
 
         mockMvc.perform(get(getEndPoint() + "/1111")) //
                 .andExpect(status().isNotFound());
@@ -92,7 +94,7 @@ public abstract class CrudControllerTest<MODEL, DTO> {
     void givenModel_whenCreate_thenSuccess() throws Exception {
         MODEL created = helper.createOne();
 
-        when(service.create(any())).thenReturn(created);
+        when(getService().create(any())).thenReturn(created);
 
         mockMvc.perform( //
                 post(getEndPoint()) //
@@ -105,7 +107,7 @@ public abstract class CrudControllerTest<MODEL, DTO> {
     void givenModel_whenUpdate_thenSuccess() throws Exception {
         MODEL updated = helper.createOne();
 
-        when(service.update(anyLong(), any())).thenReturn(updated);
+        when(getService().update(anyLong(), any())).thenReturn(updated);
 
         mockMvc.perform( //
                 put(getEndPoint() + "/1") //
@@ -116,7 +118,7 @@ public abstract class CrudControllerTest<MODEL, DTO> {
 
     @Test
     void givenId_whenDelete_thenSuccess() throws Exception {
-        doNothing().when(service).delete(anyLong());
+        doNothing().when(getService()).delete(anyLong());
 
         mockMvc.perform( //
                 delete(getEndPoint() + "/1")) //

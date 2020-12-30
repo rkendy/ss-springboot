@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.uff.ihs.ss.dto.UsuarioDto;
 import br.uff.ihs.ss.model.Usuario;
+import br.uff.ihs.ss.service.CrudService;
 import br.uff.ihs.ss.service.UsuarioService;
 
 @RestController
@@ -14,9 +15,16 @@ public class UsuarioController extends BaseCrudController<Usuario, UsuarioDto> {
 
     public static final String ENDPOINT = "/api/admin/usuario";
 
+    private UsuarioService service;
+
     @Autowired
     public UsuarioController(UsuarioService service) {
         this.service = service;
+    }
+
+    @Override
+    protected CrudService<Usuario> getService() {
+        return service;
     }
 
     @Override

@@ -51,6 +51,7 @@ public class SolicitacaoServiceImpl extends BaseCrudService<Solicitacao> impleme
         to.setSetor(from.getSetor());
     }
 
+    @Override
     public Page<Solicitacao> findByFilter(SolicitacaoFilterDto filter, Pageable pageable) {
         Specification<Solicitacao> specs = Specification.where( //
                 SolicitacaoSpecification.equalSetor(filter.getSetorId())) //

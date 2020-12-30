@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.uff.ihs.ss.dto.SetorDto;
 import br.uff.ihs.ss.model.Setor;
+import br.uff.ihs.ss.service.CrudService;
 import br.uff.ihs.ss.service.SetorService;
 
 @RestController
@@ -14,9 +15,16 @@ public class SetorController extends BaseCrudController<Setor, SetorDto> {
 
     public static final String ENDPOINT = "/api/admin/setor";
 
+    private SetorService service;
+
     @Autowired
     public SetorController(SetorService service) {
         this.service = service;
+    }
+
+    @Override
+    protected CrudService<Setor> getService() {
+        return service;
     }
 
     @Override
