@@ -29,8 +29,8 @@ dependencies {
 	implementation 'org.liquibase:liquibase-core:4.3.1'
 	implementation "io.springfox:springfox-boot-starter:3.0.0"
 	compileOnly 'org.projectlombok:lombok'
-	compile 'io.springfox:springfox-swagger-ui'
-	compile 'org.modelmapper:modelmapper:2.3.8'
+	implementation 'io.springfox:springfox-swagger-ui'
+	implementation 'org.modelmapper:modelmapper:2.3.8'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -40,8 +40,8 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 
 	// JWT:
-	compile 'io.jsonwebtoken:jjwt-api:0.11.2'
-	runtime 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 
 	// To fix error running unit test (Login): cannot retry due to server authentication, in streaming mode
 	testRuntimeOnly group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.11'
