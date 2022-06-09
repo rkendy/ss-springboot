@@ -53,8 +53,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             List<SimpleGrantedAuthority> roles = jwtSecurityUtil.getRoles(body);
             return new UsernamePasswordAuthenticationToken(u, null, roles);
         } catch (Exception e) {
-            log.info(String.format("Erro na verificacao do token: %s. Excecao: %s",
-                    request.getHeader(JwtSecurityUtil.TOKEN_HEADER), e.getStackTrace()));
+            log.info("Erro na verificacao do token: {}. Excecao: {}",
+                    request.getHeader(JwtSecurityUtil.TOKEN_HEADER), e.getMessage());
         }
         return null;
     }
