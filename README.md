@@ -8,3 +8,6 @@ gradle -Dorg.gradle.java.home=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Cont
 
 # Tasks
 clean test bootrun build tasks
+
+# Swagger:
+http://localhost:8080/swagger-ui/index.html
